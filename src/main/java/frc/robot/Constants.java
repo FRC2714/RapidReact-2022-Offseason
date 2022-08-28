@@ -124,4 +124,16 @@ public final class Constants {
 
         public static final double kDeadband = 0.05;
     }
+
+    public static final class ClimbConstants {
+        public static final int kLeftPivotMotorPort = 9;
+        public static final int kRightPivotMotorPort = 10;
+        
+        public static final int kLeftClimbMotorPort = 11;
+        public static final int kRightClimbMotorPort = 12;
+
+        public static final int kPivotMotorGearRatio = 0;//TODO
+        public static final int kClimbMotorGearRatio = 0;//TODO
+    }
+
 }
