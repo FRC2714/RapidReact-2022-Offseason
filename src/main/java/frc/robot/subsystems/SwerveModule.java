@@ -6,12 +6,10 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveConstants;
 import com.ctre.phoenix.sensors.CANCoder;
 import frc.robot.Constants.ModuleConstants;
-import edu.wpi.first.wpilibj.AnalogInput;
 
 public class SwerveModule {
 

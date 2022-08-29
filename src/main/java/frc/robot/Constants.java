@@ -80,10 +80,10 @@ public final class Constants {
         public static final boolean kBackRightDriveAbsoluteEncoderReversed = true;
 
         public static final double degToRad = Math.PI/180;
-        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = 160.225 * degToRad; // TODO: set value
-        public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = 88.945 * degToRad; // TODO: set value
-        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = 316.758 * degToRad; // TODO: set value
-        public static final double kBackRightDriveAbsoluteEncoderOffsetRad = 158.818 * degToRad; // TODO: set value
+        public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = Math.toRadians(160.225); 
+        public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = Math.toRadians(88.945); 
+        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = Math.toRadians(316.758);
+        public static final double kBackRightDriveAbsoluteEncoderOffsetRad = Math.toRadians(158.818); 
 
         //Physical
         public static final double kPhysicalMaxSpeedMetersPerSecond = 5.8;
