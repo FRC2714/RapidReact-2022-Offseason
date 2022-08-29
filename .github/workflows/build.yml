@@ -1,4 +1,4 @@
-name: Build FRC Project
+name: Build Project
 
 on:
   push:
