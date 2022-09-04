@@ -135,6 +135,18 @@ public final class Constants {
         public static final double kP = 0.11;
         public static final double kFF = 0.0039;
         public static final double kD = 0.1;
+        
+    }
+    public static final class ShooterConstants {
+        public static final int kLeftShooterMotorPort = 9;
+        public static final int kRightShooterMotorPort = 10;
+        
+        public static final double kVelocityTolerance = 50;
+        public static final double kShooterFF = 0;
+        public static final double kShooterP = 0;
+        public static final double kShooterI = 0;
+        public static final double kShooterD = 0;
+
     }
 
     public static final class FieldConstants {

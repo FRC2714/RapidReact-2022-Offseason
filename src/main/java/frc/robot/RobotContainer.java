@@ -15,6 +15,10 @@ import frc.robot.commands.auto.SCurve;
 import frc.robot.commands.drivetrain.AutoAlign;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.SwerveSubsystem;
+import edu.wpi.first.wpilibj2.command.button.*;
+import frc.robot.subsystems.*;
+import frc.robot.commands.shooter.TeleOpShooter;
+import frc.robot.commands.shooter.TeleOpShooter.ShooterState;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -31,6 +35,10 @@ public class RobotContainer {
 
 
   // The robot's subsystems and commands are defined here...
+  private final Shooter shooter = new Shooter();
+
+  private JoystickButton driverAButton = new JoystickButton(driverJoystick, 1);
+	private JoystickButton driverBButton = new JoystickButton(driverJoystick, 2);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
