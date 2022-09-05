@@ -158,4 +158,12 @@ public final class Constants {
         public static double kCameraHeight = Units.inchesToMeters(27); //TODO: set correct height
     }
 
+    public static final class HoodConstants {
+        public static final int kHoodMotorPort = 11;
+
+        public static final double kPositionTolerance = 50;
+        public static final double kHoodP = 0;
+        public static final double kHoodI = 0;
+        public static final double kHoodD = 0;
+    }
 }

@@ -9,8 +9,8 @@ import com.revrobotics.*;
 import frc.robot.Constants.ShooterConstants;
 
 public class Shooter extends SubsystemBase {
-  public CANSparkMax LeftShooterMotor;
-  public CANSparkMax RightShooterMotor;
+  private CANSparkMax LeftShooterMotor;
+  private CANSparkMax RightShooterMotor;
 
   private RelativeEncoder shooterEncoder;
   private SparkMaxPIDController shooterPID;

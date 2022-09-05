@@ -6,15 +6,18 @@ package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Hood;
 
 public class TeleOpShooter extends CommandBase {
 
   public Shooter shooter;
+  public Hood hood;
   public ShooterState ShooterState;
   /** Creates a new TeleOpShooter. */
-  public TeleOpShooter(Shooter shooter, ShooterState ShooterState) {
+  public TeleOpShooter(Shooter shooter, ShooterState ShooterState, Hood hood) {
     this.shooter = shooter;
     this.ShooterState = ShooterState;
+    this.hood = hood;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -28,12 +31,15 @@ public class TeleOpShooter extends CommandBase {
     switch(ShooterState){
       case MID:
         shooter.setMidShot();
+        hood.setMidShot();
         break; 
       case OFF:
         shooter.disable();
+        hood.disable();
         break;
       default: 
         shooter.setDefault();
+        hood.setDefault();
         break;
     }
   }
