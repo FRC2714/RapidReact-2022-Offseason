@@ -30,12 +30,12 @@ public class RobotContainer {
 
     private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
     private final Joystick driverJoystick = new Joystick(OIConstants.kDriverControllerPort);
-    private JoystickButton driverBButton = new JoystickButton(driverJoystick, 2);
     private final Limelight limelight = new Limelight();
 
 
   // The robot's subsystems and commands are defined here...
   private final Shooter shooter = new Shooter();
+  private final Hood hood = new Hood();
 
   private JoystickButton driverAButton = new JoystickButton(driverJoystick, 1);
 	private JoystickButton driverBButton = new JoystickButton(driverJoystick, 2);
