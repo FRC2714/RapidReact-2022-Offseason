@@ -124,4 +124,16 @@ public final class Constants {
 
         public static final double kDeadband = 0.05;
     }
+
+    public static final class IntakeConstants {
+        public static final int kIntakeMotorPort = 10; // TODO: set correct canID
+        public static final int kIntakePivotMotorPort = 11; // TODO: set correct canID
+
+        public static final double kIntakePower = 0.5; //TODO: set correct power
+
+        public static final double kPivotGearRatio = 1 / 36; // TODO: set correct ratio
+        public static final double kP = 0;
+        public static final double kFF = 0;
+        public static final double kD = 0;
+    }
 }
