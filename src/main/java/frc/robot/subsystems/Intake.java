@@ -17,12 +17,6 @@ public class Intake extends SubsystemBase {
   public RelativeEncoder pivotEncoder;
   public SparkMaxPIDController pivotPIDController;
 
-  public double targetDegrees(double angle){
-    angle /= 360;
-    angle *= IntakeConstants.kPivotGearRatio;
-    return angle;
-  }
-
   public Intake() {
     intakeMotor = new CANSparkMax(IntakeConstants.kIntakeMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
     pivotMotor = new CANSparkMax(IntakeConstants.kIntakePivotMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -32,6 +26,7 @@ public class Intake extends SubsystemBase {
 
     pivotEncoder = pivotMotor.getEncoder();
     pivotEncoder.setPosition(0);
+    pivotEncoder.setPositionConversionFactor(IntakeConstants.kPivotEncoderConversionFactor);
 
     pivotPIDController = pivotMotor.getPIDController();
     pivotPIDController.setP(IntakeConstants.kP);
@@ -45,7 +40,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void setPivotAngle(double degrees) {
-    pivotPIDController.setReference(targetDegrees(degrees), ControlType.kPosition);
+    pivotPIDController.setReference(degrees, ControlType.kPosition);
   }
 
   public void intakeBalls() {
