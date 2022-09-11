@@ -124,4 +124,17 @@ public final class Constants {
 
         public static final double kDeadband = 0.05;
     }
+
+    public static final class IntakeConstants {
+        public static final int kIntakeMotorPort = 15; 
+        public static final int kIntakePivotMotorPort = 14; 
+
+        public static final double kIntakePower = 1; 
+
+        public static final double kPivotGearRatio = 1 / 36; // TODO: set correct ratio
+        public static final double kPivotEncoderConversionFactor = kPivotGearRatio / 360;
+        public static final double kP = 0.11;
+        public static final double kFF = 0.0039;
+        public static final double kD = 0.1;
+    }
 }
