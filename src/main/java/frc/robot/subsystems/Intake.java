@@ -22,7 +22,7 @@ public class Intake extends SubsystemBase {
     pivotMotor = new CANSparkMax(IntakeConstants.kIntakePivotMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
 
     intakeMotor.setSmartCurrentLimit(30);
-    pivotMotor.setSmartCurrentLimit(30);
+    pivotMotor.setSmartCurrentLimit(40);
 
     pivotEncoder = pivotMotor.getEncoder();
     pivotEncoder.setPosition(0);

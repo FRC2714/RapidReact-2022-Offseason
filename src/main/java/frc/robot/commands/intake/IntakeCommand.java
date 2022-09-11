@@ -34,6 +34,7 @@ public class IntakeCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     intake.liftPivot();
+    intake.setPower(0);
   }
 
   @Override
