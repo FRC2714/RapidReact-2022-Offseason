@@ -26,7 +26,7 @@ public class Intake extends SubsystemBase {
 
     pivotEncoder = pivotMotor.getEncoder();
     pivotEncoder.setPosition(0);
-    pivotEncoder.setPositionConversionFactor(IntakeConstants.kPivotEncoderConversionFactor);
+    // pivotEncoder.setPositionConversionFactor(IntakeConstants.kPivotEncoderConversionFactor);
 
     pivotPIDController = pivotMotor.getPIDController();
     pivotPIDController.setP(IntakeConstants.kP);
