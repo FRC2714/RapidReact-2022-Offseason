@@ -56,11 +56,11 @@ public class Intake extends SubsystemBase {
   }
 
   public void liftPivot() {
-    setPivotAngle(5);
+    setPivotAngle(0);
   }
 
   public void deployPivot() {
-    setPivotAngle(20);
+    setPivotAngle(-40);
   }
 
   
