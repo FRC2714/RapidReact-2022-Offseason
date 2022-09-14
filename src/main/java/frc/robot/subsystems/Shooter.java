@@ -5,9 +5,12 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMax.ControlType;
+import com.revrobotics.CANSparkMax.IdleMode;
+
 import frc.robot.util.InterpolatingTreeMap;
 
 import frc.robot.Constants.ShooterConstants;
@@ -31,8 +34,11 @@ public class Shooter extends SubsystemBase {
     LeftShooterMotor = new CANSparkMax(ShooterConstants.kLeftShooterMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
     RightShooterMotor = new CANSparkMax(ShooterConstants.kRightShooterMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
 
-    LeftShooterMotor.setSmartCurrentLimit(60);
-    RightShooterMotor.setSmartCurrentLimit(60);
+    LeftShooterMotor.setIdleMode(IdleMode.kCoast);
+    RightShooterMotor.setIdleMode(IdleMode.kCoast);
+
+    LeftShooterMotor.setSmartCurrentLimit(40);
+    RightShooterMotor.setSmartCurrentLimit(40);
 
     shooterEncoder = LeftShooterMotor.getEncoder();
 
@@ -58,7 +64,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void setShooterPower(double power) {
-    LeftShooterMotor.set(power);
+    LeftShooterMotor.set(-power);
   }
 
   public double getTargetRpm() {
@@ -67,8 +73,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void setTargetRpm(double targetRPM) {
-    this.targetRPM = targetRPM;
-    shooterPID.setReference(targetRPM, ControlType.kVelocity);
+    shooterPID.setReference(-targetRPM, ControlType.kVelocity);
   }
 
   public void setDynamicRpm() {
@@ -91,6 +96,7 @@ public class Shooter extends SubsystemBase {
     return Math.abs(-targetRPM - getVelocity()) < ShooterConstants.kVelocityTolerance;
   }
 
+
   public void disable() {
    setShooterPower(0);
   }
@@ -98,5 +104,7 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("CURRENT SHOOTER RPM", shooterEncoder.getVelocity());
+    SmartDashboard.putNumber("RPM SETPOINT", getTargetRpm());
   }
 }

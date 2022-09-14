@@ -5,11 +5,11 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.*;
-import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.SoftLimitDirection;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkMax.ControlType;
 
 import frc.robot.Constants.HoodConstants;
 import frc.robot.util.InterpolatingTreeMap;
@@ -31,7 +31,7 @@ public class Hood extends SubsystemBase {
   public Hood() {
     hoodMotor = new CANSparkMax(HoodConstants.kHoodMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
 
-    hoodMotor.setSmartCurrentLimit(60);
+    hoodMotor.setSmartCurrentLimit(40);
 
     hoodEncoder = hoodMotor.getEncoder();
 
@@ -43,8 +43,9 @@ public class Hood extends SubsystemBase {
     hoodPID.setD(HoodConstants.kHoodD);
 
     hoodEncoder.setPosition(0);
-    // hoodMotor.setSoftLimit(SoftLimitDirection.kForward, 0)
-    // hoodMotor.setSoftLimit(SoftLimitDirection.kReverse, 0)
+    // hoodMotor.setSoftLimit(SoftLimitDirection.kForward, 0);
+    // hoodMotor.setSoftLimit(SoftLimitDirection.kReverse, 0);
+    // hoodEncoder.getPositionConversionFactor();
 
     populateMap();
 
@@ -63,7 +64,7 @@ public class Hood extends SubsystemBase {
     hoodPosition.put(6.0, 450.0);
     hoodPosition.put(9.0, 600.0);
     hoodPosition.put(15.0, 750.0); 
-  }
+  } // TODO: populate map
 
   public void setDefault() {
     setTargetPosition(defaultPosition);
@@ -77,13 +78,13 @@ public class Hood extends SubsystemBase {
     return Math.abs(-targetPosition - getPosition()) < HoodConstants.kPositionTolerance;
   }
 
-  public double getHoodPosition() {
+  public double getTargetPosition() {
     return limelight.targetVisible()
         ? hoodPosition.getInterpolated(Units.metersToFeet(limelight.getDistanceToGoal())) : defaultPosition;
   }
 
   public void setDynamicPosition() {
-    setTargetPosition(getHoodPosition());
+    setTargetPosition(getTargetPosition());
   }
 
   public void disable() {
@@ -93,6 +94,7 @@ public class Hood extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("CURRENT HOOD POSITION", getPosition());
+    SmartDashboard.putNumber("TARGET HOOD POSITION", getTargetPosition());
   }
 }

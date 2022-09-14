@@ -29,6 +29,10 @@ public class TeleOpShooter extends CommandBase {
   @Override
   public void execute() {
     switch(ShooterState){
+      case DYNAMIC:
+        shooter.setDynamicRpm();
+        hood.setDynamicPosition();
+        break;
       case MID:
         shooter.setMidShot();
         hood.setMidShot();
@@ -46,7 +50,8 @@ public class TeleOpShooter extends CommandBase {
 
   public enum ShooterState{
     MID,
-    OFF
+    OFF,
+    DYNAMIC,
   }
   // Called once the command ends or is interrupted.
   @Override
