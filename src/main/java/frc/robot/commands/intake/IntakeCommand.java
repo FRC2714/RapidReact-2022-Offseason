@@ -8,8 +8,9 @@ public class IntakeCommand extends CommandBase {
   private Intake intake;
   private IntakeState intakeState;
   
-  public IntakeCommand(Intake intake) {
+  public IntakeCommand(Intake intake, IntakeState intakeState) {
     this.intake = intake;
+    this.intakeState = intakeState;
   }
 
 
