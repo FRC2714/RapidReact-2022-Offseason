@@ -161,10 +161,16 @@ public final class Constants {
     public static final class HoodConstants {
         public static final int kHoodMotorPort = 11;
 
+
+        public static final double kRotationtoDegrees = 0;
+        public static final double kTopLimit = 0;
+        public static final double kBottomLimit = 0;
         public static final double kPositionTolerance = 50;
         public static final double kHoodP = 0;
         public static final double kHoodI = 0;
         public static final double kHoodD = 0;
+        public static final double kMaxAcc = 0;
+        public static final double kMaxVel = 0;
     }
 
     public static final class FieldConstants {

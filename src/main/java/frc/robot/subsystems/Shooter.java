@@ -29,7 +29,6 @@ public class Shooter extends SubsystemBase {
   private double midShotRPM = 500; 
   private double targetRPM = 0;
   
-  /** Creates a new Shooter. */
   public Shooter() {
     LeftShooterMotor = new CANSparkMax(ShooterConstants.kLeftShooterMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
     RightShooterMotor = new CANSparkMax(ShooterConstants.kRightShooterMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -103,7 +102,6 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
     SmartDashboard.putNumber("CURRENT SHOOTER RPM", shooterEncoder.getVelocity());
     SmartDashboard.putNumber("RPM SETPOINT", getTargetRpm());
   }

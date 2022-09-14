@@ -27,7 +27,6 @@ public class Hood extends SubsystemBase {
 
   public InterpolatingTreeMap hoodPosition = new InterpolatingTreeMap();
 
-  /** Creates a new Hood. */
   public Hood() {
     hoodMotor = new CANSparkMax(HoodConstants.kHoodMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
 
@@ -38,21 +37,25 @@ public class Hood extends SubsystemBase {
     hoodMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
     hoodPID = hoodMotor.getPIDController();
-    hoodPID.setP(HoodConstants.kHoodP);
-    hoodPID.setI(HoodConstants.kHoodI);
-    hoodPID.setD(HoodConstants.kHoodD);
+    hoodPID.setP(HoodConstants.kHoodP, 0);
+    hoodPID.setI(HoodConstants.kHoodI, 0);
+    hoodPID.setD(HoodConstants.kHoodD, 0);
+    hoodPID.setSmartMotionMaxVelocity(HoodConstants.kMaxVel, 0);
+    hoodPID.setSmartMotionMaxAccel(HoodConstants.kMaxAcc, 0);
+    hoodPID.setSmartMotionAllowedClosedLoopError(HoodConstants.kPositionTolerance, 0);
+
 
     hoodEncoder.setPosition(0);
-    // hoodMotor.setSoftLimit(SoftLimitDirection.kForward, 0);
-    // hoodMotor.setSoftLimit(SoftLimitDirection.kReverse, 0);
-    // hoodEncoder.getPositionConversionFactor();
+    // hoodMotor.setSoftLimit(SoftLimitDirection.kForward, HoodConstants.kTopLimit);
+    // hoodMotor.setSoftLimit(SoftLimitDirection.kReverse, HoodConstants.kBottomLimit);
+    // hoodEncoder.getPositionConversionFactor(HoodConstants.kRotationtoDegrees);
 
     populateMap();
 
   }
 
   public void setTargetPosition(double targetPosition) {
-    hoodPID.setReference(targetPosition, ControlType.kPosition);
+    hoodPID.setReference(targetPosition, ControlType.kSmartMotion, 0);
   }
 
   public void setMidShot() {
@@ -75,7 +78,7 @@ public class Hood extends SubsystemBase {
   }
 
   public boolean atSetpoint() {
-    return Math.abs(-targetPosition - getPosition()) < HoodConstants.kPositionTolerance;
+    return Math.abs(targetPosition - getPosition()) < HoodConstants.kPositionTolerance;
   }
 
   public double getTargetPosition() {
@@ -88,7 +91,7 @@ public class Hood extends SubsystemBase {
   }
 
   public void disable() {
-    hoodPID.setReference(defaultPosition, ControlType.kPosition);
+    hoodPID.setReference(defaultPosition, ControlType.kSmartMotion, 0);
     hoodMotor.set(0);
   }
 
