@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.*;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -59,6 +60,9 @@ public class SwerveModule {
 
             drivingMotor.setSmartCurrentLimit(40);
             turningMotor.setSmartCurrentLimit(35);
+
+            drivingMotor.setIdleMode(IdleMode.kBrake);
+            turningMotor.setIdleMode(IdleMode.kCoast);
 
             resetEncoders();
     }

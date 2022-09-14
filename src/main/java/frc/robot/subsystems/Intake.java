@@ -4,6 +4,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 import frc.robot.Constants.IntakeConstants;
 
@@ -20,6 +21,9 @@ public class Intake extends SubsystemBase {
   public Intake() {
     intakeMotor = new CANSparkMax(IntakeConstants.kIntakeMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
     pivotMotor = new CANSparkMax(IntakeConstants.kIntakePivotMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
+
+    intakeMotor.setIdleMode(IdleMode.kCoast);
+    pivotMotor.setIdleMode(IdleMode.kBrake);
 
     intakeMotor.setSmartCurrentLimit(30);
     pivotMotor.setSmartCurrentLimit(40);
