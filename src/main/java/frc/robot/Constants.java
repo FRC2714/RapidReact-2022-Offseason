@@ -79,7 +79,6 @@ public final class Constants {
         public static final boolean kFrontRightDriveAbsoluteEncoderReversed = true;
         public static final boolean kBackRightDriveAbsoluteEncoderReversed = true;
 
-        public static final double degToRad = Math.PI/180;
         public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = Math.toRadians(46.406); 
         public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = Math.toRadians(70.928); 
         public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = Math.toRadians(252.070);
@@ -91,7 +90,7 @@ public final class Constants {
 
         //Speed and Accel
         public static final double kTeleDriveMaxSpeedMultiplier = 1;
-        public static final double kTeleDriveMaxAnglularSpeedMultiplier = 0.5;
+        public static final double kTeleDriveMaxAnglularSpeedMultiplier = 0.6;
         public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond * kTeleDriveMaxSpeedMultiplier;
         public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond * kTeleDriveMaxAnglularSpeedMultiplier;
         public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 10;
@@ -99,9 +98,9 @@ public final class Constants {
     }
 
     public static final class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecond = DriveConstants.kPhysicalMaxSpeedMetersPerSecond / 4;
+        public static final double kMaxSpeedMetersPerSecond = DriveConstants.kPhysicalMaxSpeedMetersPerSecond / 2;
         public static final double kMaxAngularSpeedRadiansPerSecond = //
-                DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond / 10;
+                DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond / 5;
         public static final double kMaxAccelerationMetersPerSecondSquared = 3;
         public static final double kMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 4;
         public static final double kPXController = 1.5;
