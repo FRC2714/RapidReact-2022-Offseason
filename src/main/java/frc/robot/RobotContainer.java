@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.JoystickCommand;
 import frc.robot.commands.auto.SCurve;
 import frc.robot.commands.drivetrain.AutoAlign;
-import frc.robot.commands.drivetrain.driveRaw;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.SwerveSubsystem;
 
@@ -28,7 +27,6 @@ public class RobotContainer {
     private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
     private final Joystick driverJoystick = new Joystick(OIConstants.kDriverControllerPort);
     private JoystickButton driverBButton = new JoystickButton(driverJoystick, 2);
-    private JoystickButton driverXButton = new JoystickButton(driverJoystick,3);
     private final Limelight limelight = new Limelight();
 
 
