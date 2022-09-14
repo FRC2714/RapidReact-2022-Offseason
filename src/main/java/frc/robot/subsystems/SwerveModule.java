@@ -57,6 +57,9 @@ public class SwerveModule {
             turningPIDController = new PIDController(ModuleConstants.kTurnP, 0, 0);
             turningPIDController.enableContinuousInput(-Math.PI, Math.PI);
 
+            drivingMotor.setSmartCurrentLimit(40);
+            turningMotor.setSmartCurrentLimit(35);
+
             resetEncoders();
     }
     
