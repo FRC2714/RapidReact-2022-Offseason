@@ -36,7 +36,7 @@ public class Shooter extends SubsystemBase {
 
     shooterEncoder = LeftShooterMotor.getEncoder();
 
-    RightShooterMotor.follow(RightShooterMotor, true);
+    RightShooterMotor.follow(LeftShooterMotor, true);
 
     LeftShooterMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
     RightShooterMotor.setIdleMode(CANSparkMax.IdleMode.kCoast);
