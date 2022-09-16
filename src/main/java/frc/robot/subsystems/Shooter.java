@@ -29,7 +29,10 @@ public class Shooter extends SubsystemBase {
   private double midShotRPM = 500; 
   private double targetRPM = 0;
   
-  public Shooter() {
+  public Shooter(Limelight limelight) {
+
+    this.limelight = limelight;
+
     LeftShooterMotor = new CANSparkMax(ShooterConstants.kLeftShooterMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
     RightShooterMotor = new CANSparkMax(ShooterConstants.kRightShooterMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
 
@@ -53,6 +56,7 @@ public class Shooter extends SubsystemBase {
     shooterPID.setP(ShooterConstants.kShooterP);
     shooterPID.setI(ShooterConstants.kShooterI);
     shooterPID.setD(ShooterConstants.kShooterD);
+
   }
 
   private void populateVelocityMap() {

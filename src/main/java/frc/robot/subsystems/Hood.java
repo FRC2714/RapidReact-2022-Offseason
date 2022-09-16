@@ -27,7 +27,10 @@ public class Hood extends SubsystemBase {
 
   public InterpolatingTreeMap hoodPosition = new InterpolatingTreeMap();
 
-  public Hood() {
+  public Hood(Limelight limelight) {
+
+    this.limelight = limelight;
+
     hoodMotor = new CANSparkMax(HoodConstants.kHoodMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
 
     hoodMotor.setSmartCurrentLimit(40);

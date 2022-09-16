@@ -12,9 +12,6 @@ import frc.robot.Constants.OIConstants;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.JoystickCommand;
 import frc.robot.commands.auto.SCurve;
-import frc.robot.commands.drivetrain.AutoAlign;
-import frc.robot.subsystems.Limelight;
-import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.subsystems.*;
 import frc.robot.commands.shooter.TeleOpShooter;
@@ -30,12 +27,11 @@ public class RobotContainer {
 
     private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
     private final Joystick driverJoystick = new Joystick(OIConstants.kDriverControllerPort);
-    private final Limelight limelight = new Limelight();
-
 
   // The robot's subsystems and commands are defined here...
-  private final Shooter shooter = new Shooter();
-  private final Hood hood = new Hood();
+  private final Limelight limelight = new Limelight();
+  private final Shooter shooter = new Shooter(limelight);
+  private final Hood hood = new Hood(limelight);
 
   private JoystickButton driverAButton = new JoystickButton(driverJoystick, 1);
 	private JoystickButton driverBButton = new JoystickButton(driverJoystick, 2);
