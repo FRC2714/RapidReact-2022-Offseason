@@ -163,14 +163,17 @@ public final class Constants {
 
 
         public static final double kRotationtoDegrees = 0;
-        public static final double kTopLimit = 0;
-        public static final double kBottomLimit = 0;
-        public static final double kPositionTolerance = 50;
+        public static final float kTopLimit = 0;
+        public static final float kBottomLimit = 40;
+        public static final double kPositionTolerance = 4;
+
+        public static final double kHoodFF = 0.00028;
         public static final double kHoodP = 0;
         public static final double kHoodI = 0;
         public static final double kHoodD = 0;
-        public static final double kMaxAcc = 0;
-        public static final double kMaxVel = 0;
+        public static final double kMaxAcc = 5000;
+        public static final double kMaxVel = 5000;
+        
     }
 
     public static final class FieldConstants {

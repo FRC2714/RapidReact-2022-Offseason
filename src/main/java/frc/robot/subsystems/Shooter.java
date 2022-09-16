@@ -108,5 +108,6 @@ public class Shooter extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("CURRENT SHOOTER RPM", shooterEncoder.getVelocity());
     SmartDashboard.putNumber("RPM SETPOINT", getTargetRpm());
+    SmartDashboard.putBoolean("SHOOTER TOLERANCE", atSetpoint());
   }
 }

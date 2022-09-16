@@ -22,7 +22,7 @@ public class Hood extends SubsystemBase {
   private SparkMaxPIDController hoodPID;
 
   private double defaultPosition = 20;
-  private double midShotPosition = 70;
+  private double midShotPosition = 40;
   private double targetPosition = 0;
 
   public InterpolatingTreeMap hoodPosition = new InterpolatingTreeMap();
@@ -40,18 +40,18 @@ public class Hood extends SubsystemBase {
     hoodMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
     hoodPID = hoodMotor.getPIDController();
+    hoodPID.setFF(HoodConstants.kHoodFF);
     hoodPID.setP(HoodConstants.kHoodP, 0);
     hoodPID.setI(HoodConstants.kHoodI, 0);
     hoodPID.setD(HoodConstants.kHoodD, 0);
     hoodPID.setSmartMotionMaxVelocity(HoodConstants.kMaxVel, 0);
     hoodPID.setSmartMotionMaxAccel(HoodConstants.kMaxAcc, 0);
-    hoodPID.setSmartMotionAllowedClosedLoopError(HoodConstants.kPositionTolerance, 0);
 
 
     hoodEncoder.setPosition(0);
-    // hoodMotor.setSoftLimit(SoftLimitDirection.kForward, HoodConstants.kTopLimit);
-    // hoodMotor.setSoftLimit(SoftLimitDirection.kReverse, HoodConstants.kBottomLimit);
-    // hoodEncoder.getPositionConversionFactor(HoodConstants.kRotationtoDegrees);
+    hoodMotor.setSoftLimit(SoftLimitDirection.kForward, HoodConstants.kTopLimit);
+    hoodMotor.setSoftLimit(SoftLimitDirection.kReverse, HoodConstants.kBottomLimit);
+    hoodEncoder.setPositionConversionFactor(-1.0);
 
     populateMap();
 
@@ -66,10 +66,10 @@ public class Hood extends SubsystemBase {
   }
 
   public void populateMap() {
-    hoodPosition.put(3.0, 200.0);
-    hoodPosition.put(6.0, 450.0);
-    hoodPosition.put(9.0, 600.0);
-    hoodPosition.put(15.0, 750.0); 
+    hoodPosition.put(3.0, 0.0);
+    hoodPosition.put(6.0, 15.0);
+    hoodPosition.put(9.0, 30.0);
+    hoodPosition.put(15.0, 40.0); 
   } // TODO: populate map
 
   public void setDefault() {
@@ -102,5 +102,6 @@ public class Hood extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("CURRENT HOOD POSITION", getPosition());
     SmartDashboard.putNumber("TARGET HOOD POSITION", getTargetPosition());
+    SmartDashboard.putBoolean("HOOD TOLERANCE", atSetpoint());
   }
 }
