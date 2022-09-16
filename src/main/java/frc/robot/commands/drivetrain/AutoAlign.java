@@ -41,7 +41,7 @@ public class AutoAlign extends ProfiledPIDCommand {
         addRequirements(swerveSubsystem);
         this.limelight = limelight;
         this.swerveSubsystem = swerveSubsystem;
-        getController().setTolerance(.1, .2);
+        getController().setTolerance(.05, .2);
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
   }
