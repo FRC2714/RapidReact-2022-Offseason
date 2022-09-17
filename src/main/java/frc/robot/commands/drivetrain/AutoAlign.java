@@ -29,7 +29,7 @@ public class AutoAlign extends ProfiledPIDCommand {
             0,
             0.01,
             // The motion profile constraints
-            new TrapezoidProfile.Constraints(AutoConstants.kMaxAngularSpeedRadiansPerSecond, AutoConstants.kMaxAngularAccelerationRadiansPerSecondSquared)),
+            new TrapezoidProfile.Constraints(DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond, DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond)),
         // This should return the measurement
         limelight::getXRadianOffset,
         // This should return the goal (can also be a constant)
