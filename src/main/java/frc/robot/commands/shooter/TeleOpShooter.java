@@ -16,6 +16,7 @@ public class TeleOpShooter extends CommandBase {
   public Hood hood;
   public ShooterState ShooterState;
   public Index index;
+
   /** Creates a new TeleOpShooter. */
   public TeleOpShooter(Shooter shooter, ShooterState ShooterState, Hood hood, Index index) {
     this.shooter = shooter;
@@ -27,45 +28,43 @@ public class TeleOpShooter extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    switch(ShooterState){
+    switch (ShooterState) {
       case DYNAMIC:
         shooter.setDynamicRpm();
         hood.setDynamicPosition();
         if (shooter.atSetpoint() && hood.atSetpoint()) {
-        index.setIndexState(IndexState.SHOOTING);
-        }
-        else {
+          index.setIndexState(IndexState.SHOOTING);
+        } else {
           index.disable();
         }
         break;
       case LOW:
         shooter.setTargetRpm(1000);
         hood.setTargetPosition(0);
-        index.setIndexState(IndexState.SHOOTING);
         if (shooter.atSetpoint() && hood.atSetpoint()) {
           index.setIndexState(IndexState.SHOOTING);
-          }
-          else {
-            index.disable();
-          }
-        break;  
+        } else {
+          index.disable();
+        }
+        break;
       case OFF:
         shooter.disable();
         hood.disable();
         break;
-      default: 
+      default:
         shooter.setDefault();
         hood.setDefault();
         break;
     }
   }
 
-  public enum ShooterState{
+  public enum ShooterState {
     LOW,
     OFF,
     DYNAMIC,
