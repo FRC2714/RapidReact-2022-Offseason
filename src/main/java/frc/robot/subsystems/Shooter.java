@@ -26,7 +26,6 @@ public class Shooter extends SubsystemBase {
   private Limelight limelight;
 
   private double defaultRPM = 200;
-  private double midShotRPM = 2500; 
   private double targetRPM = 0;
   
   public Shooter(Limelight limelight) {
@@ -81,10 +80,6 @@ public class Shooter extends SubsystemBase {
 
   public void setDynamicRpm() {
     setTargetRpm(getTargetRpm());
-  }
-
-  public void setMidShot() {
-    setTargetRpm(midShotRPM);
   }
 
   public void setDefault() {

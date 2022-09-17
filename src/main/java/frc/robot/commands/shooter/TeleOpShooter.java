@@ -6,18 +6,22 @@ package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Index.IndexState;
 import frc.robot.subsystems.Hood;
+import frc.robot.subsystems.Index;
 
 public class TeleOpShooter extends CommandBase {
 
   public Shooter shooter;
   public Hood hood;
   public ShooterState ShooterState;
+  public Index index;
   /** Creates a new TeleOpShooter. */
-  public TeleOpShooter(Shooter shooter, ShooterState ShooterState, Hood hood) {
+  public TeleOpShooter(Shooter shooter, ShooterState ShooterState, Hood hood, Index index) {
     this.shooter = shooter;
     this.ShooterState = ShooterState;
     this.hood = hood;
+    this.index = index;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -32,14 +36,23 @@ public class TeleOpShooter extends CommandBase {
       case DYNAMIC:
         shooter.setDynamicRpm();
         hood.setDynamicPosition();
-        break;
-      case MID:
-        shooter.setMidShot();
-        hood.setMidShot();
+        if (shooter.atSetpoint() && hood.atSetpoint()) {
+        index.setIndexState(IndexState.SHOOTING);
+        }
+        else {
+          index.disable();
+        }
         break;
       case LOW:
         shooter.setTargetRpm(1000);
         hood.setTargetPosition(0);
+        index.setIndexState(IndexState.SHOOTING);
+        if (shooter.atSetpoint() && hood.atSetpoint()) {
+          index.setIndexState(IndexState.SHOOTING);
+          }
+          else {
+            index.disable();
+          }
         break;  
       case OFF:
         shooter.disable();
@@ -53,15 +66,16 @@ public class TeleOpShooter extends CommandBase {
   }
 
   public enum ShooterState{
-    MID,
     LOW,
     OFF,
     DYNAMIC,
   }
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     shooter.disable();
+    index.disable();
   }
 
   // Returns true when the command should end.

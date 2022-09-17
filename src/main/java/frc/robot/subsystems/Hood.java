@@ -94,7 +94,6 @@ public class Hood extends SubsystemBase {
   }
 
   public void disable() {
-    hoodPID.setReference(defaultPosition, ControlType.kSmartMotion, 0);
     hoodMotor.set(0);
   }
 
