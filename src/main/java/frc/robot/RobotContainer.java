@@ -12,6 +12,7 @@ import frc.robot.Constants.OIConstants;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.JoystickCommand;
 import frc.robot.commands.auto.SCurve;
+import frc.robot.commands.drivetrain.AutoAlign;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.subsystems.*;
 import frc.robot.commands.shooter.TeleOpShooter;
