@@ -59,10 +59,12 @@ public class Shooter extends SubsystemBase {
   }
 
   private void populateVelocityMap() {
-        shooterVelocity.put(3.0, 200.0);
-        shooterVelocity.put(6.0, 450.0);
-        shooterVelocity.put(9.0, 600.0);
-        shooterVelocity.put(15.0, 750.0); // TODO: populate tree map
+        shooterVelocity.put(15.0, 2500.0);
+        shooterVelocity.put(18.0, 3000.0);
+        shooterVelocity.put(24.0, 4000.0);
+        shooterVelocity.put(27.0, 4750.0);
+        shooterVelocity.put(30.0, 5000.0);
+        shooterVelocity.put(33.0, 4500.0);
   }
 
   public void setShooterPower(double power) {
@@ -75,6 +77,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void setTargetRpm(double targetRPM) {
+    this.targetRPM = targetRPM;
     shooterPID.setReference(-targetRPM, ControlType.kVelocity);
   }
 
@@ -91,7 +94,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public boolean atSetpoint() {
-    return Math.abs(-targetRPM - getVelocity()) < ShooterConstants.kVelocityTolerance;
+    return Math.abs(targetRPM + getVelocity()) < ShooterConstants.kVelocityTolerance;
   }
 
 

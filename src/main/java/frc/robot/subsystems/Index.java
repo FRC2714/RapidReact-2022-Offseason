@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IndexConstants;
 import com.revrobotics.CANSparkMaxLowLevel;
@@ -35,16 +36,17 @@ public class Index extends SubsystemBase {
     }
 
     public void setIndexPower(double power) {
-        indexMotor.set(power);
+        indexMotor.set(-power);
     }
 
     public void moveAll(double power) {
-        indexMotor.set(power);
-        rollerMotor.set(power);
+       setIndexPower(.5);
+       setRollerPower(.5);
     }
 
     public void disable() {
         moveAll(0);
+        System.out.println("disabled(?)");
         setIndexState(IndexState.DEFAULT);
     }
 
@@ -60,12 +62,18 @@ public class Index extends SubsystemBase {
         this.indexState = indexState;
     }
 
-    public void IndexMotion() {
+    public void 
+    IndexMotion() {
         if (indexState == IndexState.SHOOTING) {
             moveAll(.5);
+        } else {
+            moveAll(0);
         }
         if (indexState == IndexState.EXTAKING) {
             moveAll(-.5);
+        }
+        if (indexState == IndexState.DEFAULT) {
+            moveAll(0);
         }
         if (indexState == IndexState.INTAKING) {
 
@@ -79,13 +87,14 @@ public class Index extends SubsystemBase {
                 }
                 
             } else {
-                moveAll(.5);
+                moveAll(0);
             }
         }
     }
 
     @Override
     public void periodic() {
-
+        SmartDashboard.putBoolean("INDEX BEAM", getIndexBreakbeam());
+        SmartDashboard.putBoolean("ROLLER BEAM", getRollerBreakbeam());
     }
 }

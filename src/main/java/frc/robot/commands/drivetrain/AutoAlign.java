@@ -29,13 +29,13 @@ public class AutoAlign extends ProfiledPIDCommand {
             0,
             0.01,
             // The motion profile constraints
-            new TrapezoidProfile.Constraints(AutoConstants.kMaxAngularSpeedRadiansPerSecond, AutoConstants.kMaxAngularAccelerationRadiansPerSecondSquared)),
+            new TrapezoidProfile.Constraints(DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond, DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond)),
         // This should return the measurement
         limelight::getXRadianOffset,
         // This should return the goal (can also be a constant)
         0,
         // This uses the output
-        (output, setpoint) -> swerveSubsystem.rawDrive(new ChassisSpeeds(0,0,output * 4))
+        (output, setpoint) -> swerveSubsystem.rawDrive(new ChassisSpeeds(0,0,output * 6))
           // Use the output (and setpoint, if desired) here
         );
         addRequirements(swerveSubsystem);

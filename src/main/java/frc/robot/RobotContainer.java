@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.JoystickCommand;
 import frc.robot.commands.auto.SCurve;
 import frc.robot.commands.drivetrain.AutoAlign;
+import frc.robot.commands.intake.IntakeCommand;
+import frc.robot.commands.intake.IntakeCommand.IntakeState;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.subsystems.*;
 import frc.robot.commands.shooter.TeleOpShooter;
@@ -30,11 +32,14 @@ public class RobotContainer {
   private final Limelight limelight = new Limelight();
   private final Shooter shooter = new Shooter(limelight);
   private final Hood hood = new Hood(limelight);
+  private final Index index = new Index();
+  private final Intake intake = new Intake();
 
   private final Joystick driverJoystick = new Joystick(OIConstants.kDriverControllerPort);
   private JoystickButton driverAButton = new JoystickButton(driverJoystick, 1);
 	private JoystickButton driverBButton = new JoystickButton(driverJoystick, 2);
   private JoystickButton driverXButton = new JoystickButton(driverJoystick, 3);
+  private JoystickButton driverYButton = new JoystickButton(driverJoystick, 4);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -56,6 +61,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     driverBButton.whileHeld(new AutoAlign(swerveSubsystem, limelight));
+    driverXButton.whileHeld(new TeleOpShooter(shooter, ShooterState.DYNAMIC, hood, index));
+    driverYButton.whileHeld(new IntakeCommand(intake, IntakeState.INTAKE, index));
+
   }
 
   /**

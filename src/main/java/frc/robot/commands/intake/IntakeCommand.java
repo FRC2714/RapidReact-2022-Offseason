@@ -27,12 +27,14 @@ public class IntakeCommand extends CommandBase {
             case EXTAKE:
             intake.deployPivot();
             intake.extakeBalls();
+            index.IndexMotion();
             index.setIndexState(IndexState.EXTAKING);
             break;
 
             case INTAKE:
             intake.deployPivot();
-            intake.intakeBalls();  
+            intake.intakeBalls();
+            index.IndexMotion();  
             index.setIndexState(IndexState.INTAKING);
             break;
         }

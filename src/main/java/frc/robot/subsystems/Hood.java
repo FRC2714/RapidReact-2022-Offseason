@@ -46,19 +46,21 @@ public class Hood extends SubsystemBase {
     hoodPID.setD(HoodConstants.kHoodD, 0);
     hoodPID.setSmartMotionMaxVelocity(HoodConstants.kMaxVel, 0);
     hoodPID.setSmartMotionMaxAccel(HoodConstants.kMaxAcc, 0);
+    hoodPID.setSmartMotionAllowedClosedLoopError(HoodConstants.kPositionTolerance, 0);
 
 
     hoodEncoder.setPosition(0);
     hoodMotor.setSoftLimit(SoftLimitDirection.kForward, HoodConstants.kTopLimit);
     hoodMotor.setSoftLimit(SoftLimitDirection.kReverse, HoodConstants.kBottomLimit);
-    hoodEncoder.setPositionConversionFactor(-1.0);
+
 
     populateMap();
 
   }
 
   public void setTargetPosition(double targetPosition) {
-    hoodPID.setReference(targetPosition, ControlType.kSmartMotion, 0);
+    this.targetPosition = targetPosition;
+    hoodPID.setReference(-targetPosition, ControlType.kSmartMotion, 0);
   }
 
   public void setMidShot() {
@@ -66,10 +68,11 @@ public class Hood extends SubsystemBase {
   }
 
   public void populateMap() {
-    hoodPosition.put(3.0, 0.0);
-    hoodPosition.put(6.0, 15.0);
-    hoodPosition.put(9.0, 30.0);
-    hoodPosition.put(15.0, 40.0); 
+    hoodPosition.put(20.0, 0.0);
+    hoodPosition.put(25.0, 10.0);
+    hoodPosition.put(30.0, 20.0);
+    hoodPosition.put(35.0, 30.0);
+    hoodPosition.put(40.0, 40.0); 
   } // TODO: populate map
 
   public void setDefault() {
@@ -81,7 +84,7 @@ public class Hood extends SubsystemBase {
   }
 
   public boolean atSetpoint() {
-    return Math.abs(targetPosition - getPosition()) < HoodConstants.kPositionTolerance;
+    return Math.abs(targetPosition + getPosition()) < HoodConstants.kPositionSetpointTolerance;
   }
 
   public double getTargetPosition() {
