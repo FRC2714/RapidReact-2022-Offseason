@@ -35,6 +35,7 @@ public class RobotContainer {
 
   private JoystickButton driverAButton = new JoystickButton(driverJoystick, 1);
 	private JoystickButton driverBButton = new JoystickButton(driverJoystick, 2);
+  private JoystickButton driverXButton = new JoystickButton(driverJoystick, 3);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

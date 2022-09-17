@@ -36,7 +36,11 @@ public class TeleOpShooter extends CommandBase {
       case MID:
         shooter.setMidShot();
         hood.setMidShot();
-        break; 
+        break;
+      case LOW:
+        shooter.setTargetRpm(1000);
+        hood.setTargetPosition(0);
+        break;  
       case OFF:
         shooter.disable();
         hood.disable();
@@ -50,12 +54,15 @@ public class TeleOpShooter extends CommandBase {
 
   public enum ShooterState{
     MID,
+    LOW,
     OFF,
     DYNAMIC,
   }
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    shooter.disable();
+  }
 
   // Returns true when the command should end.
   @Override

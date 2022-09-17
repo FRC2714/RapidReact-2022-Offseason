@@ -163,8 +163,8 @@ public final class Constants {
 
 
         public static final double kRotationtoDegrees = 0;
-        public static final float kTopLimit = 0;
-        public static final float kBottomLimit = 40;
+        public static final float kTopLimit = -40;
+        public static final float kBottomLimit = 0;
         public static final double kPositionTolerance = 4;
 
         public static final double kHoodFF = 0.00028;

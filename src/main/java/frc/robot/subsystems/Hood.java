@@ -21,8 +21,8 @@ public class Hood extends SubsystemBase {
   private RelativeEncoder hoodEncoder;
   private SparkMaxPIDController hoodPID;
 
-  private double defaultPosition = 20;
-  private double midShotPosition = 40;
+  private double defaultPosition = -20;
+  private double midShotPosition = -40;
   private double targetPosition = 0;
 
   public InterpolatingTreeMap hoodPosition = new InterpolatingTreeMap();
