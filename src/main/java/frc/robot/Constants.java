@@ -137,6 +137,15 @@ public final class Constants {
         public static final double kD = 0.1;
         
     }
+
+    public static final class IndexConstants {
+
+        public static final int kIndexMotorPort = 0;
+        public static final int kRollerMotorPort = 0;
+        public static final int kIndexBeamChannel = 0;
+        public static final int kRollerBeamChannel = 0;
+
+    }
     public static final class ShooterConstants {
         public static final int kLeftShooterMotorPort = 9;
         public static final int kRightShooterMotorPort = 10;
