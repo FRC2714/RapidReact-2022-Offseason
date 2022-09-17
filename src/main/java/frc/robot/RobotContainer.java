@@ -26,14 +26,12 @@ import frc.robot.commands.shooter.TeleOpShooter.ShooterState;
  */
 public class RobotContainer {
 
-    private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
-    private final Joystick driverJoystick = new Joystick(OIConstants.kDriverControllerPort);
-
-  // The robot's subsystems and commands are defined here...
+  private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
   private final Limelight limelight = new Limelight();
   private final Shooter shooter = new Shooter(limelight);
   private final Hood hood = new Hood(limelight);
 
+  private final Joystick driverJoystick = new Joystick(OIConstants.kDriverControllerPort);
   private JoystickButton driverAButton = new JoystickButton(driverJoystick, 1);
 	private JoystickButton driverBButton = new JoystickButton(driverJoystick, 2);
   private JoystickButton driverXButton = new JoystickButton(driverJoystick, 3);
