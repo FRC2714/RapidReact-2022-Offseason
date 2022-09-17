@@ -176,12 +176,4 @@ public final class Constants {
         
     }
 
-    public static final class FieldConstants {
-        public static final double kGoalHeight = Units.inchesToMeters(98.25);
-    }
-
-    public static final class CameraConstants {
-        public static final double kMountingAngle = 15; //TODO: set correct angle
-        public static double kCameraHeight = Units.inchesToMeters(27); //TODO: set correct height
-    }
 }
