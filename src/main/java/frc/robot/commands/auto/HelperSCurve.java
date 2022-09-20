@@ -24,7 +24,7 @@ public class HelperSCurve extends SequentialCommandGroup {
                         new Translation2d(1, 0),
                         new Translation2d(1, -1)),
                 new Pose2d(2, -1, Rotation2d.fromDegrees(180)),
-                AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared, false);
+                AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
 
         
 

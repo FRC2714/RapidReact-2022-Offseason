@@ -17,12 +17,11 @@ import java.util.List;
 public class PathGenerator {
 
 
-    private static TrajectoryConfig getConfig(double maxVel, double maxAcc, boolean isReversed) {
+    private static TrajectoryConfig getConfig(double maxVel, double maxAcc) {
 
         return new TrajectoryConfig(maxVel, maxAcc)
                 // Add kinematics to ensure max speed is actually obeyed
-                .setKinematics(DriveConstants.kDriveKinematics)
-                .setReversed(isReversed);
+                .setKinematics(DriveConstants.kDriveKinematics);
 
     }
 
@@ -30,7 +29,7 @@ public class PathGenerator {
                                                          Pose2d startPose,
                                                          List<Translation2d> internalPoints,
                                                          Pose2d endPose,
-                                                         double velocity, double acceleration, boolean isReversed) {
+                                                         double velocity, double acceleration) {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 startPose,
 
@@ -38,7 +37,7 @@ public class PathGenerator {
 
                 endPose,
 
-                getConfig(velocity, acceleration, isReversed)
+                getConfig(velocity, acceleration)
         );
 
         return getPathCommand(swerveSubsystem, trajectory);
@@ -47,10 +46,10 @@ public class PathGenerator {
 
     public static CustomSwerveControllerCommand PathCommand(SwerveSubsystem swerveSubsystem,
                                                          List<Pose2d> waypoints,
-                                                         double velocity, double acceleration, boolean isReversed) {
+                                                         double velocity, double acceleration) {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 waypoints,
-                getConfig(velocity, acceleration, isReversed)
+                getConfig(velocity, acceleration)
         );
 
         return getPathCommand(swerveSubsystem, trajectory);
