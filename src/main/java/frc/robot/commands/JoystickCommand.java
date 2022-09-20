@@ -55,7 +55,7 @@ public class JoystickCommand extends CommandBase {
 
         // 4. Construct desired chassis speeds
         ChassisSpeeds chassisSpeeds;
-        if (true) { //fieldOrientedFunction.get()
+        if (fieldOrientedFunction.get()) { 
             // Relative to field
             chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(
                     xSpeed, ySpeed, turningSpeed, swerveSubsystem.getRotation2d());
