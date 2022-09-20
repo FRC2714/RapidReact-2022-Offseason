@@ -60,9 +60,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    driverBButton.whileHeld(new AutoAlign(swerveSubsystem, limelight));
+    // driverBButton.whileHeld(new AutoAlign(swerveSubsystem, limelight));
     driverXButton.whileHeld(new TeleOpShooter(shooter, ShooterState.DYNAMIC, hood, index));
     driverYButton.whileHeld(new IntakeCommand(intake, IntakeState.INTAKE, index));
+    driverBButton.whileHeld(new AutoAlign(swerveSubsystem, limelight));
 
   }
 

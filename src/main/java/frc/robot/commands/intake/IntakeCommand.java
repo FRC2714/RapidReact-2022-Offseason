@@ -36,10 +36,11 @@ public class IntakeCommand extends CommandBase {
             index.moveAll(.25);
             if (index.getIndexBreakbeam()) {
               index.setIndexPower(0);
-              index.setRollerPower(.25);
+              index.setRollerPower(.5);
 
               if (index.getRollerBreakbeam()) {
-                  index.moveAll(.25);
+                  index.setIndexPower(.1);
+                  index.setRollerPower(.5);
               }
             break;
             }

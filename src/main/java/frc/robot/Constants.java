@@ -151,7 +151,7 @@ public final class Constants {
         public static final int kRightShooterMotorPort = 10;
         
         public static final double kVelocityTolerance = 50;
-        public static final double kShooterFF = 0.000185;
+        public static final double kShooterFF = 0.000184;
         public static final double kShooterP = 0.00018;
         public static final double kShooterI = 0;
         public static final double kShooterD = 0;
@@ -163,8 +163,8 @@ public final class Constants {
     }
 
     public static final class CameraConstants {
-        public static final double kMountingAngle = 15; //TODO: set correct angle
-        public static double kCameraHeight = Units.inchesToMeters(27); //TODO: set correct height
+        public static final double kMountingAngle = 33; 
+        public static double kCameraHeight = Units.inchesToMeters(31); 
     }
 
     public static final class HoodConstants {

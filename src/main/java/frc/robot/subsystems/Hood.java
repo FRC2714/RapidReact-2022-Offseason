@@ -21,8 +21,8 @@ public class Hood extends SubsystemBase {
   private RelativeEncoder hoodEncoder;
   private SparkMaxPIDController hoodPID;
 
-  private double defaultPosition = -20;
-  private double midShotPosition = -40;
+  private double defaultPosition = 0;
+  private double midShotPosition = 0;
   private double targetPosition = 0;
 
   public InterpolatingTreeMap hoodPosition = new InterpolatingTreeMap();
@@ -68,11 +68,11 @@ public class Hood extends SubsystemBase {
   }
 
   public void populateMap() {
-    hoodPosition.put(20.0, 0.0);
-    hoodPosition.put(25.0, 10.0);
-    hoodPosition.put(30.0, 20.0);
-    hoodPosition.put(35.0, 30.0);
-    hoodPosition.put(40.0, 40.0); 
+    hoodPosition.put(4.5, 1.0);
+    hoodPosition.put(9.0, 7.5);
+    hoodPosition.put(13.5, 14.0);
+    hoodPosition.put(16.5, 35.0);
+    hoodPosition.put(20.0, 37.5); 
   } // TODO: populate map
 
   public void setDefault() {
