@@ -26,7 +26,6 @@ public class Shooter extends SubsystemBase {
   private Limelight limelight;
 
   private double defaultRPM = 200;
-  private double midShotRPM = 2500; 
   private double targetRPM = 0;
   
   public Shooter(Limelight limelight) {
@@ -60,10 +59,12 @@ public class Shooter extends SubsystemBase {
   }
 
   private void populateVelocityMap() {
-        shooterVelocity.put(3.0, 200.0);
-        shooterVelocity.put(6.0, 450.0);
-        shooterVelocity.put(9.0, 600.0);
-        shooterVelocity.put(15.0, 750.0); // TODO: populate tree map
+        shooterVelocity.put(4.5, 2400.0);
+        shooterVelocity.put(7.0, 2500.0);
+        shooterVelocity.put(10.0, 2650.0);
+        shooterVelocity.put(14.0, 2900.0);
+        shooterVelocity.put(16.5, 3500.0);
+        shooterVelocity.put(20.0, 3750.0);
   }
 
   public void setShooterPower(double power) {
@@ -76,15 +77,12 @@ public class Shooter extends SubsystemBase {
   }
 
   public void setTargetRpm(double targetRPM) {
+    this.targetRPM = targetRPM;
     shooterPID.setReference(-targetRPM, ControlType.kVelocity);
   }
 
   public void setDynamicRpm() {
     setTargetRpm(getTargetRpm());
-  }
-
-  public void setMidShot() {
-    setTargetRpm(midShotRPM);
   }
 
   public void setDefault() {
@@ -96,7 +94,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public boolean atSetpoint() {
-    return Math.abs(-targetRPM - getVelocity()) < ShooterConstants.kVelocityTolerance;
+    return Math.abs(targetRPM + getVelocity()) < ShooterConstants.kVelocityTolerance;
   }
 
 

@@ -62,7 +62,7 @@ public class SwerveModule {
             turningMotor.setSmartCurrentLimit(35);
 
             drivingMotor.setIdleMode(IdleMode.kBrake);
-            turningMotor.setIdleMode(IdleMode.kCoast);
+            turningMotor.setIdleMode(IdleMode.kBrake);
 
             resetEncoders();
     }

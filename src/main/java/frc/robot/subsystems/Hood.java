@@ -21,8 +21,8 @@ public class Hood extends SubsystemBase {
   private RelativeEncoder hoodEncoder;
   private SparkMaxPIDController hoodPID;
 
-  private double defaultPosition = -20;
-  private double midShotPosition = -40;
+  private double defaultPosition = 0;
+  private double midShotPosition = 0;
   private double targetPosition = 0;
 
   public InterpolatingTreeMap hoodPosition = new InterpolatingTreeMap();
@@ -46,19 +46,21 @@ public class Hood extends SubsystemBase {
     hoodPID.setD(HoodConstants.kHoodD, 0);
     hoodPID.setSmartMotionMaxVelocity(HoodConstants.kMaxVel, 0);
     hoodPID.setSmartMotionMaxAccel(HoodConstants.kMaxAcc, 0);
+    hoodPID.setSmartMotionAllowedClosedLoopError(HoodConstants.kPositionTolerance, 0);
 
 
     hoodEncoder.setPosition(0);
     hoodMotor.setSoftLimit(SoftLimitDirection.kForward, HoodConstants.kTopLimit);
     hoodMotor.setSoftLimit(SoftLimitDirection.kReverse, HoodConstants.kBottomLimit);
-    hoodEncoder.setPositionConversionFactor(-1.0);
+
 
     populateMap();
 
   }
 
   public void setTargetPosition(double targetPosition) {
-    hoodPID.setReference(targetPosition, ControlType.kSmartMotion, 0);
+    this.targetPosition = targetPosition;
+    hoodPID.setReference(-targetPosition, ControlType.kSmartMotion, 0);
   }
 
   public void setMidShot() {
@@ -66,10 +68,11 @@ public class Hood extends SubsystemBase {
   }
 
   public void populateMap() {
-    hoodPosition.put(3.0, 0.0);
-    hoodPosition.put(6.0, 15.0);
-    hoodPosition.put(9.0, 30.0);
-    hoodPosition.put(15.0, 40.0); 
+    hoodPosition.put(4.5, 1.0);
+    hoodPosition.put(9.0, 7.5);
+    hoodPosition.put(13.5, 14.0);
+    hoodPosition.put(16.5, 35.0);
+    hoodPosition.put(20.0, 37.5); 
   } // TODO: populate map
 
   public void setDefault() {
@@ -81,7 +84,7 @@ public class Hood extends SubsystemBase {
   }
 
   public boolean atSetpoint() {
-    return Math.abs(targetPosition - getPosition()) < HoodConstants.kPositionTolerance;
+    return Math.abs(targetPosition + getPosition()) < HoodConstants.kPositionSetpointTolerance;
   }
 
   public double getTargetPosition() {
@@ -94,7 +97,6 @@ public class Hood extends SubsystemBase {
   }
 
   public void disable() {
-    hoodPID.setReference(defaultPosition, ControlType.kSmartMotion, 0);
     hoodMotor.set(0);
   }
 

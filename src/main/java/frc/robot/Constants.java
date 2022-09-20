@@ -90,7 +90,7 @@ public final class Constants {
 
         //Speed and Accel
         public static final double kTeleDriveMaxSpeedMultiplier = 1;
-        public static final double kTeleDriveMaxAnglularSpeedMultiplier = 0.6;
+        public static final double kTeleDriveMaxAnglularSpeedMultiplier = 0.4;
         public static final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond * kTeleDriveMaxSpeedMultiplier;
         public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond * kTeleDriveMaxAnglularSpeedMultiplier;
         public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 10;
@@ -137,13 +137,22 @@ public final class Constants {
         public static final double kD = 0.1;
         
     }
+
+    public static final class IndexConstants {
+
+        public static final int kIndexMotorPort = 12;
+        public static final int kRollerMotorPort = 13;
+        public static final int kIndexBeamChannel = 0;
+        public static final int kRollerBeamChannel = 1;
+
+    }
     public static final class ShooterConstants {
         public static final int kLeftShooterMotorPort = 9;
         public static final int kRightShooterMotorPort = 10;
         
         public static final double kVelocityTolerance = 50;
-        public static final double kShooterFF = 0.000185;
-        public static final double kShooterP = 0;
+        public static final double kShooterFF = 0.000184;
+        public static final double kShooterP = 0.00018;
         public static final double kShooterI = 0;
         public static final double kShooterD = 0;
 
@@ -154,8 +163,8 @@ public final class Constants {
     }
 
     public static final class CameraConstants {
-        public static final double kMountingAngle = 15; //TODO: set correct angle
-        public static double kCameraHeight = Units.inchesToMeters(27); //TODO: set correct height
+        public static final double kMountingAngle = 33; 
+        public static double kCameraHeight = Units.inchesToMeters(31); 
     }
 
     public static final class HoodConstants {
@@ -165,10 +174,11 @@ public final class Constants {
         public static final double kRotationtoDegrees = 0;
         public static final float kTopLimit = -40;
         public static final float kBottomLimit = 0;
-        public static final double kPositionTolerance = 4;
+        public static final double kPositionTolerance = .25;
+        public static final double kPositionSetpointTolerance = 2;
 
         public static final double kHoodFF = 0.00028;
-        public static final double kHoodP = 0;
+        public static final double kHoodP = 0.00005;
         public static final double kHoodI = 0;
         public static final double kHoodD = 0;
         public static final double kMaxAcc = 5000;
