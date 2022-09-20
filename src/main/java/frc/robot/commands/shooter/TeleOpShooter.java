@@ -38,10 +38,8 @@ public class TeleOpShooter extends CommandBase {
       case DYNAMIC:
         shooter.setDynamicRpm();
         hood.setDynamicPosition();
-        index.setIndexState(IndexState.SHOOTING);
         if (shooter.atSetpoint() && hood.atSetpoint()) {
-          System.out.println("among us");
-          index.IndexMotion();
+          index.moveAll(.5);
         } else {
           index.disable();
         }
@@ -50,7 +48,7 @@ public class TeleOpShooter extends CommandBase {
         shooter.setTargetRpm(1000);
         hood.setTargetPosition(0);
         if (shooter.atSetpoint() && hood.atSetpoint()) {
-          index.setIndexState(IndexState.SHOOTING);
+          index.moveAll(.5);
         } else {
           index.disable();
         }
@@ -77,7 +75,6 @@ public class TeleOpShooter extends CommandBase {
   public void end(boolean interrupted) {
     shooter.disable();
     index.disable();
-    index.IndexMotion();
   }
 
   // Returns true when the command should end.

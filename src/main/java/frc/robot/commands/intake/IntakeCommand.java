@@ -27,24 +27,30 @@ public class IntakeCommand extends CommandBase {
             case EXTAKE:
             intake.deployPivot();
             intake.extakeBalls();
-            index.IndexMotion();
-            index.setIndexState(IndexState.EXTAKING);
+            index.moveAll(-.5);
             break;
 
             case INTAKE:
             intake.deployPivot();
             intake.intakeBalls();
-            index.IndexMotion();  
-            index.setIndexState(IndexState.INTAKING);
+            index.moveAll(.25);
+            if (index.getIndexBreakbeam()) {
+              index.setIndexPower(0);
+              index.setRollerPower(.25);
+
+              if (index.getRollerBreakbeam()) {
+                  index.moveAll(.25);
+              }
             break;
-        }
+            }
+          }
       }
 
   @Override
   public void end(boolean interrupted) {
     intake.liftPivot();
     intake.setPower(0);
-    index.disable();
+    index.moveAll(0);
   }
 
   @Override

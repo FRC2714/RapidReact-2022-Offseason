@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IndexConstants;
 import com.revrobotics.CANSparkMaxLowLevel;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 public class Index extends SubsystemBase {
     private CANSparkMax indexMotor;
@@ -29,6 +30,8 @@ public class Index extends SubsystemBase {
         rollerMotor = new CANSparkMax(IndexConstants.kRollerMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
         indexBeam = new DigitalInput(IndexConstants.kIndexBeamChannel);
         rollerBeam = new DigitalInput(IndexConstants.kRollerBeamChannel);
+
+        indexMotor.setIdleMode(IdleMode.kBrake);
     }
 
     public void setRollerPower(double power) {
@@ -40,22 +43,12 @@ public class Index extends SubsystemBase {
     }
 
     public void moveAll(double power) {
-       setIndexPower(.5);
-       setRollerPower(.5);
+       setIndexPower(power);
+       setRollerPower(power);
     }
 
     public void disable() {
         moveAll(0);
-        System.out.println("disabled(?)");
-        setIndexState(IndexState.DEFAULT);
-    }
-
-    public boolean getIndexBreakbeam() {
-        return indexBeam.get();
-    }
-
-    public boolean getRollerBreakbeam() {
-        return rollerBeam.get();
     }
 
     public void setIndexState(IndexState indexState) {
@@ -92,9 +85,17 @@ public class Index extends SubsystemBase {
         }
     }
 
-    @Override
+
     public void periodic() {
         SmartDashboard.putBoolean("INDEX BEAM", getIndexBreakbeam());
         SmartDashboard.putBoolean("ROLLER BEAM", getRollerBreakbeam());
+    }
+
+    public boolean getIndexBreakbeam() {
+        return !indexBeam.get();
+    }
+
+    public boolean getRollerBreakbeam() {
+        return !rollerBeam.get();
     }
 }

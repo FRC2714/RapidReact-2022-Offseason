@@ -10,6 +10,7 @@ import frc.robot.Constants.IntakeConstants;
 
 import com.revrobotics.CANSparkMaxLowLevel;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
@@ -65,6 +66,10 @@ public class Intake extends SubsystemBase {
 
   public void deployPivot() {
     setPivotAngle(-40);
+  }
+
+  public void periodic() {
+    SmartDashboard.putNumber("intake position", pivotEncoder.getPosition());
   }
 
   
