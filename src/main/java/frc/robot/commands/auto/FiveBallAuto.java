@@ -36,19 +36,19 @@ public class FiveBallAuto extends SequentialCommandGroup {
         PathGenerator.PathCommand(swerveSubsystem,
           List.of(
             new Pose2d(Units.feetToMeters(26.38), Units.feetToMeters(2.08), Rotation2d.fromDegrees(-90.00)),
-            new Pose2d(Units.feetToMeters(17.68), Units.feetToMeters(6.74), Rotation2d.fromDegrees(37.00))),
+            new Pose2d(Units.feetToMeters(16.7), Units.feetToMeters(6.2), Rotation2d.fromDegrees(37.00))),
           AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
     CustomSwerveControllerCommand splineToHumanPlayer =
 			PathGenerator.PathCommand(swerveSubsystem,
 				List.of(
           new Pose2d(Units.feetToMeters(17.68), Units.feetToMeters(6.74), Rotation2d.fromDegrees(37.00)), 
-          new Pose2d(Units.feetToMeters(5.039), Units.feetToMeters(5.334), Rotation2d.fromDegrees(45.00))),
+          new Pose2d(Units.feetToMeters(4.3), Units.feetToMeters(4.6), Rotation2d.fromDegrees(45.00))),
 				AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
     CustomSwerveControllerCommand splineToGoal =
         PathGenerator.PathCommand(swerveSubsystem,
           List.of(
-            new Pose2d(Units.feetToMeters(5.039), Units.feetToMeters(5.334), Rotation2d.fromDegrees(45.00)),
-            new Pose2d(Units.feetToMeters(14.403), Units.feetToMeters(8.47), Rotation2d.fromDegrees(-146.0))), 
+            new Pose2d(Units.feetToMeters(4.3), Units.feetToMeters(4.6), Rotation2d.fromDegrees(45.00)),
+            new Pose2d(Units.feetToMeters(16.7), Units.feetToMeters(6.2), Rotation2d.fromDegrees(-146.0))), 
           AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
 
         
