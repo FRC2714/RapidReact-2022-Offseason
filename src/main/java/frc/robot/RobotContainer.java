@@ -42,6 +42,7 @@ public class RobotContainer {
 	private JoystickButton driverBButton = new JoystickButton(driverJoystick, 2);
   private JoystickButton driverXButton = new JoystickButton(driverJoystick, 3);
   private JoystickButton driverYButton = new JoystickButton(driverJoystick, 4);
+  private JoystickButton driverRightBumper = new JoystickButton(driverJoystick, 5);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -65,7 +66,7 @@ public class RobotContainer {
     // driverBButton.whileHeld(new AutoAlign(swerveSubsystem, limelight));
     driverXButton.whileHeld(new TeleOpShooter(shooter, ShooterState.DYNAMIC, hood, index));
     driverYButton.whileHeld(new IntakeCommand(intake, IntakeState.INTAKE, index));
-    driverBButton.whileHeld(new AutoAlign(swerveSubsystem, limelight));
+    driverRightBumper.whileHeld(new AutoAlign(swerveSubsystem, limelight));
 
   }
 
