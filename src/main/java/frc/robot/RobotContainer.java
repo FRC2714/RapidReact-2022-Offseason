@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.JoystickCommand;
+import frc.robot.commands.auto.FiveBallAuto;
+import frc.robot.commands.auto.HelperSCurve;
 import frc.robot.commands.auto.SCurve;
 import frc.robot.commands.drivetrain.AutoAlign;
 import frc.robot.commands.intake.IntakeCommand;
@@ -48,7 +50,7 @@ public class RobotContainer {
       () -> -driverJoystick.getRawAxis(OIConstants.kDriverYAxis),
       () -> driverJoystick.getRawAxis(OIConstants.kDriverXAxis),
       () -> driverJoystick.getRawAxis(OIConstants.kDriverRotAxis),
-      () -> !driverJoystick.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
+      () -> driverJoystick.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
 
     configureButtonBindings();
   }
@@ -75,5 +77,13 @@ public class RobotContainer {
   public Command getSCurveAuto() {
 		return new SCurve(swerveSubsystem);
 	}
+
+  public Command getHelperSCurveAuto() {
+    return new HelperSCurve(swerveSubsystem);
+  }
+
+  public Command getFiveBallAuto() {
+    return new FiveBallAuto(swerveSubsystem);
+  }
 }
 
