@@ -8,6 +8,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -90,8 +91,8 @@ public class SwerveSubsystem extends SubsystemBase {
         odometer.update(getRotation2d(), frontLeft.getState(), frontRight.getState(), backLeft.getState(),
                 backRight.getState());
         SmartDashboard.putNumber("robotHeading", getPose().getRotation().getDegrees());
-        SmartDashboard.putNumber("Robot X", getPose().getTranslation().getX());
-        SmartDashboard.putNumber("Robot Y", getPose().getTranslation().getY());
+        SmartDashboard.putNumber("Robot X", Units.metersToFeet(getPose().getTranslation().getX()));
+        SmartDashboard.putNumber("Robot Y", Units.metersToFeet(getPose().getTranslation().getY()));
         SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
     }
 
