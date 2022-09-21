@@ -53,7 +53,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
     private final AHRS gyro = new AHRS(Port.kMXP);
     private final SwerveDriveOdometry odometer = new SwerveDriveOdometry(DriveConstants.kDriveKinematics,
-            new Rotation2d(0));
+            getRotation2d());
 
     public SwerveSubsystem() {
         new Thread(() -> {
@@ -70,8 +70,8 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     public double getHeading() {
-        return Math.IEEEremainder(gyro.getAngle(), 360);
-    }
+        return gyro.getRotation2d().getDegrees();
+      }
 
     public Rotation2d getRotation2d() {
         return Rotation2d.fromDegrees(getHeading());
@@ -82,14 +82,14 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     public void resetOdometry(Pose2d pose) {
-        odometer.resetPosition(pose, getRotation2d());
+        odometer.resetPosition(pose, gyro.getRotation2d());
     }
 
     @Override
     public void periodic() {
         odometer.update(getRotation2d(), frontLeft.getState(), frontRight.getState(), backLeft.getState(),
                 backRight.getState());
-        SmartDashboard.putNumber("Robot Heading", getHeading());
+        SmartDashboard.putNumber("robotHeading", getPose().getRotation().getDegrees());
         SmartDashboard.putNumber("Robot X", getPose().getTranslation().getX());
         SmartDashboard.putNumber("Robot Y", getPose().getTranslation().getY());
         SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
