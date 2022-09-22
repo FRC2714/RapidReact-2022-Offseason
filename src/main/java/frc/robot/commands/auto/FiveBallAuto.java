@@ -35,13 +35,13 @@ public class FiveBallAuto extends SequentialCommandGroup {
         CustomSwerveControllerCommand splineToSecondBall =
         PathGenerator.PathCommand(swerveSubsystem,
           List.of(
-            new Pose2d(Units.feetToMeters(26.38), Units.feetToMeters(2.08), Rotation2d.fromDegrees(-90.00)),
+            new Pose2d(Units.feetToMeters(24.75), Units.feetToMeters(2.08), Rotation2d.fromDegrees(-90.00)),
             new Pose2d(Units.feetToMeters(16.7), Units.feetToMeters(6.2), Rotation2d.fromDegrees(37.00))),
           AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
     CustomSwerveControllerCommand splineToHumanPlayer =
 			PathGenerator.PathCommand(swerveSubsystem,
 				List.of(
-          new Pose2d(Units.feetToMeters(17.68), Units.feetToMeters(6.74), Rotation2d.fromDegrees(37.00)), 
+          new Pose2d(Units.feetToMeters(16.7), Units.feetToMeters(6.2), Rotation2d.fromDegrees(37.00)), 
           new Pose2d(Units.feetToMeters(4.3), Units.feetToMeters(4.6), Rotation2d.fromDegrees(45.00))),
 				AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
     CustomSwerveControllerCommand splineToGoal =
@@ -53,10 +53,10 @@ public class FiveBallAuto extends SequentialCommandGroup {
 
         
 		addCommands(
-			new InstantCommand(() -> swerveSubsystem.resetOdometry(splineToFirstBall.getInitialPose())),
-			splineToFirstBall,
-      splineToSecondBall,
-      splineToHumanPlayer,
+			new InstantCommand(() -> swerveSubsystem.resetOdometry(splineToGoal.getInitialPose())),
+			// splineToFirstBall,
+      // splineToSecondBall,
+      // splineToHumanPlayer,
       splineToGoal,
 			new InstantCommand(() -> swerveSubsystem.stopModules())
 

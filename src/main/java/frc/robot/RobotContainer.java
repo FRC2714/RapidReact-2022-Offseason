@@ -50,7 +50,7 @@ public class RobotContainer {
       swerveSubsystem,
       () -> -driverJoystick.getRawAxis(OIConstants.kDriverYAxis),
       () -> driverJoystick.getRawAxis(OIConstants.kDriverXAxis),
-      () -> driverJoystick.getRawAxis(OIConstants.kDriverRotAxis),
+      () -> -driverJoystick.getRawAxis(OIConstants.kDriverRotAxis),
       () -> driverJoystick.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
 
     configureButtonBindings();

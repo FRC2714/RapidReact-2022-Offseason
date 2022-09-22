@@ -35,7 +35,7 @@ public class AutoAlign extends ProfiledPIDCommand {
         // This should return the goal (can also be a constant)
         0,
         // This uses the output
-        (output, setpoint) -> swerveSubsystem.rawDrive(new ChassisSpeeds(0,0,output * 6))
+        (output, setpoint) -> swerveSubsystem.rawDrive(new ChassisSpeeds(0,0,output * -6))
           // Use the output (and setpoint, if desired) here
         );
         addRequirements(swerveSubsystem);
