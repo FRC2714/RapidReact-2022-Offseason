@@ -19,47 +19,93 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.drivetrain.AutoAlign;
+import frc.robot.commands.intake.IntakeCommand;
+import frc.robot.commands.intake.IntakeCommand.IntakeState;
+import frc.robot.commands.shooter.TeleOpShooter;
+import frc.robot.commands.shooter.TeleOpShooter.ShooterState;
+import frc.robot.subsystems.Hood;
+import frc.robot.subsystems.Index;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.util.CustomSwerveControllerCommand;
 import frc.robot.util.PathGenerator;
 
 public class FiveBallAuto extends SequentialCommandGroup {
-	public FiveBallAuto(SwerveSubsystem swerveSubsystem) {
+	public FiveBallAuto(SwerveSubsystem swerveSubsystem, Limelight limelight, Shooter shooter, Hood hood, Intake intake, Index index) {
 		CustomSwerveControllerCommand splineToFirstBall =
 			PathGenerator.PathCommand(swerveSubsystem,
 				List.of(
           new Pose2d(Units.feetToMeters(24.75), Units.feetToMeters(5.8), Rotation2d.fromDegrees(-90.00)), 
           new Pose2d(Units.feetToMeters(24.75), Units.feetToMeters(2.08), Rotation2d.fromDegrees(-90.00))),
 				AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
-
-        CustomSwerveControllerCommand splineToSecondBall =
-        PathGenerator.PathCommand(swerveSubsystem,
-          List.of(
-            new Pose2d(Units.feetToMeters(24.75), Units.feetToMeters(2.08), Rotation2d.fromDegrees(-90.00)),
-            new Pose2d(Units.feetToMeters(16.7), Units.feetToMeters(6.2), Rotation2d.fromDegrees(37.00))),
-          AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
+    CustomSwerveControllerCommand splineToSecondBall =
+      PathGenerator.PathCommand(swerveSubsystem,
+        List.of(
+          new Pose2d(Units.feetToMeters(26.38), Units.feetToMeters(2.08), Rotation2d.fromDegrees(-90.00)),
+          new Pose2d(Units.feetToMeters(17.68), Units.feetToMeters(6.74), Rotation2d.fromDegrees(37.00))),
+        AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
     CustomSwerveControllerCommand splineToHumanPlayer =
 			PathGenerator.PathCommand(swerveSubsystem,
 				List.of(
-          new Pose2d(Units.feetToMeters(16.7), Units.feetToMeters(6.2), Rotation2d.fromDegrees(37.00)), 
-          new Pose2d(Units.feetToMeters(4.3), Units.feetToMeters(4.6), Rotation2d.fromDegrees(45.00))),
+          new Pose2d(Units.feetToMeters(17.68), Units.feetToMeters(6.74), Rotation2d.fromDegrees(37.00)), 
+          new Pose2d(Units.feetToMeters(5.039), Units.feetToMeters(5.334), Rotation2d.fromDegrees(45.00))),
+				AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
+    CustomSwerveControllerCommand splineToWaiting =
+			PathGenerator.PathCommand(swerveSubsystem,
+				List.of(
+          new Pose2d(Units.feetToMeters(5.039), Units.feetToMeters(5.334), Rotation2d.fromDegrees(45.00)),  
+          new Pose2d(Units.feetToMeters(7.04), Units.feetToMeters(7.25), Rotation2d.fromDegrees(45.00))),
 				AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
     CustomSwerveControllerCommand splineToGoal =
         PathGenerator.PathCommand(swerveSubsystem,
           List.of(
-            new Pose2d(Units.feetToMeters(4.3), Units.feetToMeters(4.6), Rotation2d.fromDegrees(45.00)),
-            new Pose2d(Units.feetToMeters(16.7), Units.feetToMeters(6.2), Rotation2d.fromDegrees(-146.0))), 
+            new Pose2d(Units.feetToMeters(7.04), Units.feetToMeters(7.25), Rotation2d.fromDegrees(45.00)),
+            new Pose2d(Units.feetToMeters(14.403), Units.feetToMeters(8.47), Rotation2d.fromDegrees(-146.0))), 
           AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
 
-        
 		addCommands(
-			new InstantCommand(() -> swerveSubsystem.resetOdometry(splineToGoal.getInitialPose())),
-			// splineToFirstBall,
-      // splineToSecondBall,
-      // splineToHumanPlayer,
+      new InstantCommand(() -> swerveSubsystem.resetOdometry(splineToFirstBall.getInitialPose())),
+      //move to and intake ball
+      deadline(
+        splineToFirstBall, 
+        new IntakeCommand(intake, IntakeState.INTAKE, index)
+      ),
+      //shoot first two balls
+      deadline(
+        new TeleOpShooter(shooter, ShooterState.DYNAMIC, hood, index).withTimeout(1.0), 
+        new AutoAlign(swerveSubsystem, limelight)
+      ),
+      //move to third ball
+      deadline(
+        splineToSecondBall, 
+        new IntakeCommand(intake, IntakeState.INTAKE, index)
+      ),
+      //shoot third ball
+      deadline(
+        new TeleOpShooter(shooter, ShooterState.DYNAMIC, hood, index).withTimeout(1.0), 
+        new AutoAlign(swerveSubsystem, limelight)
+      ),
+      //intake human player ball
+      deadline(
+        splineToHumanPlayer, 
+        new IntakeCommand(intake, IntakeState.INTAKE, index)
+      ),
+      //wait for second human player ball
+      deadline(
+        splineToWaiting.withTimeout(3.0), 
+        new IntakeCommand(intake, IntakeState.INTAKE, index)
+      ),
+      //move to shoot
       splineToGoal,
+      //shoot first two balls
+      deadline(
+        new TeleOpShooter(shooter, ShooterState.DYNAMIC, hood, index).withTimeout(1.0), 
+        new AutoAlign(swerveSubsystem, limelight)
+      ),
 			new InstantCommand(() -> swerveSubsystem.stopModules())
-
 		);
 		addCommands();
 	}

@@ -84,7 +84,7 @@ public class RobotContainer {
   }
 
   public Command getFiveBallAuto() {
-    return new FiveBallAuto(swerveSubsystem);
+    return new FiveBallAuto(swerveSubsystem, limelight, shooter, hood, intake, index);
   }
 }
 
