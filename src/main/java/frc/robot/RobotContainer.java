@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.JoystickCommand;
+import frc.robot.commands.auto.BallStealAuto;
 import frc.robot.commands.auto.FiveBallAuto;
 import frc.robot.commands.auto.HelperSCurve;
 import frc.robot.commands.auto.SCurve;
@@ -81,6 +82,10 @@ public class RobotContainer {
 
   public Command getHelperSCurveAuto() {
     return new HelperSCurve(swerveSubsystem);
+  }
+
+  public Command getBallStealAuto() {
+    return new BallStealAuto(swerveSubsystem, limelight, shooter, hood, intake, index);
   }
 
   public Command getFiveBallAuto() {
