@@ -186,4 +186,32 @@ public final class Constants {
         
     }
 
+    public static final class ClimbConstants {
+        //Motor ports
+        public static final int kLeftPivotMotorPort = 16;
+        public static final int kRightPivotMotorPort = 18;
+        public static final int kLeftClimbMotorPort = 19;
+        public static final int kRightClimbMotorPort = 17;
+
+        //Climb Speeds
+        public static final double kPivotSpeed = 0.015;
+        public static final double kClimbSpeed = 1;
+
+        //Climb Limits
+        public static final float kMaxHeight = 100;
+
+        public static final int kPivotMotorGearRatio = 1 / 100;
+        public static final double kPivotEncoderConversionFactor = kPivotMotorGearRatio * 360;
+        public static final int kClimbMotorGearRatio = 1 / 16;
+
+        //Pivot PID
+        public static final double kPivotFF = 0.002;
+        public static final double kPivotP = 0.025;
+        public static final double kPivotD = 0;
+
+        //Climb PID
+        public static final double kClimbFF = 0;
+        public static final double kClimbP = 0;
+    }
+
 }

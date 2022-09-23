@@ -15,6 +15,8 @@ import frc.robot.commands.auto.BallStealAuto;
 import frc.robot.commands.auto.FiveBallAuto;
 import frc.robot.commands.auto.HelperSCurve;
 import frc.robot.commands.auto.SCurve;
+import frc.robot.commands.climber.MoveClimber;
+import frc.robot.commands.climber.MoveClimber.ClimberState;
 import frc.robot.commands.drivetrain.AutoAlign;
 import frc.robot.commands.intake.IntakeCommand;
 import frc.robot.commands.intake.IntakeCommand.IntakeState;
@@ -37,13 +39,25 @@ public class RobotContainer {
   private final Hood hood = new Hood(limelight);
   private final Index index = new Index();
   private final Intake intake = new Intake();
+  private final Climber climber = new Climber();
 
   private final Joystick driverJoystick = new Joystick(OIConstants.kDriverControllerPort);
+  private final Joystick operatorJoystick = new Joystick(1);
+
   private JoystickButton driverAButton = new JoystickButton(driverJoystick, 1);
 	private JoystickButton driverBButton = new JoystickButton(driverJoystick, 2);
   private JoystickButton driverXButton = new JoystickButton(driverJoystick, 3);
   private JoystickButton driverYButton = new JoystickButton(driverJoystick, 4);
-  private JoystickButton driverRightBumper = new JoystickButton(driverJoystick, 5);
+  private JoystickButton driverRightBumper = new JoystickButton(driverJoystick, 6);
+
+  private JoystickButton operatorAButton = new JoystickButton(operatorJoystick,1);
+  private JoystickButton operatorBButton = new JoystickButton(operatorJoystick,2);
+  private JoystickButton operatorXButton = new JoystickButton(operatorJoystick,3);
+  private JoystickButton operatorYButton = new JoystickButton(operatorJoystick,4);
+  private POVButton operatorDPadUp = new POVButton(operatorJoystick, 0);
+	private POVButton operatorDPadLeft = new POVButton(operatorJoystick, 90);
+	private POVButton operatorDPadDown = new POVButton(operatorJoystick, 180);
+	private POVButton operatorDPadRight = new POVButton(operatorJoystick, 270);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -64,11 +78,16 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    // driverBButton.whileHeld(new AutoAlign(swerveSubsystem, limelight));
-    driverXButton.whileHeld(new TeleOpShooter(shooter, ShooterState.DYNAMIC, hood, index));
-    driverYButton.whileHeld(new IntakeCommand(intake, IntakeState.INTAKE, index));
     driverRightBumper.whileHeld(new AutoAlign(swerveSubsystem, limelight));
 
+    operatorAButton.whileHeld(new IntakeCommand(intake, IntakeState.INTAKE, index));
+    operatorBButton.whileHeld(new TeleOpShooter(shooter, ShooterState.DYNAMIC, hood, index));
+    operatorXButton.whileHeld(new IntakeCommand(intake, IntakeState.EXTAKE, index));
+
+    operatorDPadUp.whileHeld(new MoveClimber(climber, ClimberState.EXTEND));
+		operatorDPadDown.whileHeld(new MoveClimber(climber, ClimberState.RETRACT));
+		operatorDPadLeft.whileHeld(new MoveClimber(climber, ClimberState.REACH));
+		operatorDPadRight.whileHeld(new MoveClimber(climber, ClimberState.PULL));
   }
 
   /**
