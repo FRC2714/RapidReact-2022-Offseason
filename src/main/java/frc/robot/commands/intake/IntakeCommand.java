@@ -27,7 +27,7 @@ public class IntakeCommand extends CommandBase {
             case EXTAKE:
             intake.deployPivot();
             intake.extakeBalls();
-            index.moveAll(-.5);
+            index.moveAll(-.75);
             break;
 
             case INTAKE:
@@ -36,14 +36,21 @@ public class IntakeCommand extends CommandBase {
             index.moveAll(.25);
             if (index.getIndexBreakbeam()) {
               index.setIndexPower(0);
-              index.setRollerPower(.5);
+              index.setRollerPower(1);
 
               if (index.getRollerBreakbeam()) {
                   index.setIndexPower(.1);
-                  index.setRollerPower(.5);
+                  index.setRollerPower(1);
               }
-            break;
             }
+            break;
+
+            case AUTO:
+            intake.deployPivot();
+            intake.intakeBalls();
+            index.setRollerPower(1);
+            break;
+            
           }
       }
 
@@ -62,5 +69,6 @@ public class IntakeCommand extends CommandBase {
   public enum IntakeState{
     EXTAKE,
     INTAKE,
+    AUTO,
   }
 }

@@ -38,8 +38,8 @@ public class JoystickCommand extends CommandBase {
     @Override
     public void execute() {
         // 1. Get real-time joystick inputs
-        double xSpeed = xSpdFunction.get();
-        double ySpeed = ySpdFunction.get();
+        double xSpeed = -xSpdFunction.get();
+        double ySpeed = -ySpdFunction.get();
         double turningSpeed = turningSpdFunction.get();
 
         // 2. Apply deadband

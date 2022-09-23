@@ -38,26 +38,26 @@ public class BallStealAuto extends SequentialCommandGroup {
 		CustomSwerveControllerCommand splineToTeamBall =
 			PathGenerator.PathCommand(swerveSubsystem,
 				List.of(
-          new Pose2d(Units.feetToMeters(19.73), Units.feetToMeters(16.86), Rotation2d.fromDegrees(-45.00)), 
-          new Pose2d(Units.feetToMeters(16.59), Units.feetToMeters(19.78), Rotation2d.fromDegrees(-44.82))),
+          new Pose2d(Units.feetToMeters(19.73), Units.feetToMeters(16.86), Rotation2d.fromDegrees(135)), 
+          new Pose2d(Units.feetToMeters(16.59), Units.feetToMeters(19.78), Rotation2d.fromDegrees(130.00))),
 				AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
     CustomSwerveControllerCommand splineToOpposingHangarBall =
       PathGenerator.PathCommand(swerveSubsystem,
         List.of(
-          new Pose2d(Units.feetToMeters(16.59), Units.feetToMeters(19.78), Rotation2d.fromDegrees(-44.82)),
-          new Pose2d(Units.feetToMeters(19.55), Units.feetToMeters(23.39), Rotation2d.fromDegrees(-107.00))),
+          new Pose2d(Units.feetToMeters(16.59), Units.feetToMeters(19.78), Rotation2d.fromDegrees(130.00)),
+          new Pose2d(Units.feetToMeters(19.55), Units.feetToMeters(23.39), Rotation2d.fromDegrees(-1.00))),
         AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
     CustomSwerveControllerCommand splineToOpposingHubBall =
       PathGenerator.PathCommand(swerveSubsystem,
         List.of(
-          new Pose2d(Units.feetToMeters(19.55), Units.feetToMeters(23.39), Rotation2d.fromDegrees(-107.00)),
-          new Pose2d(Units.feetToMeters(14.40), Units.feetToMeters(11.34), Rotation2d.fromDegrees(107.76))),
+          new Pose2d(Units.feetToMeters(19.55), Units.feetToMeters(23.39), Rotation2d.fromDegrees(-1.00)),
+          new Pose2d(Units.feetToMeters(14.40), Units.feetToMeters(11.34), Rotation2d.fromDegrees(-73.00))),
         AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
     CustomSwerveControllerCommand splineToHub =
       PathGenerator.PathCommand(swerveSubsystem,
         List.of(
-          new Pose2d(Units.feetToMeters(14.40), Units.feetToMeters(11.34), Rotation2d.fromDegrees(107.76)),
-          new Pose2d(Units.feetToMeters(18.51), Units.feetToMeters(12.07), Rotation2d.fromDegrees(-161.10))),
+          new Pose2d(Units.feetToMeters(14.40), Units.feetToMeters(11.34), Rotation2d.fromDegrees(-73.00)),
+          new Pose2d(Units.feetToMeters(18.51), Units.feetToMeters(12.07), Rotation2d.fromDegrees(19.0))),
         AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
 
 		addCommands(
@@ -69,6 +69,7 @@ public class BallStealAuto extends SequentialCommandGroup {
       ),
       //shoot first two balls
       deadline(
+        new IntakeCommand(intake, IntakeState.AUTO, index),
         new TeleOpShooter(shooter, ShooterState.DYNAMIC, hood, index).withTimeout(1.0), 
         new AutoAlign(swerveSubsystem, limelight)
       ),

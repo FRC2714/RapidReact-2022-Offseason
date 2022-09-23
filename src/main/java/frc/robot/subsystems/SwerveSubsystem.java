@@ -54,7 +54,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
     private final AHRS gyro = new AHRS(Port.kMXP);
     private final SwerveDriveOdometry odometer = new SwerveDriveOdometry(DriveConstants.kDriveKinematics,
-            getRotation2d());
+            new Rotation2d());
 
     public SwerveSubsystem() {
         new Thread(() -> {
