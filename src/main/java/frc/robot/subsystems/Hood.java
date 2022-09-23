@@ -71,9 +71,9 @@ public class Hood extends SubsystemBase {
     hoodPosition.put(4.5, 1.0);
     hoodPosition.put(7.0, 4.5);
     hoodPosition.put(8.5, 10.0);
-    hoodPosition.put(10.0, 14.0);
-    hoodPosition.put(12.0, 20.0);
-    hoodPosition.put(14.0, 25.0);
+    hoodPosition.put(10.0, 18.0);
+    hoodPosition.put(12.0, 24.0);
+    hoodPosition.put(14.0, 30.0);
     hoodPosition.put(16.5, 35.0);
     hoodPosition.put(20.0, 37.5); 
   } // TODO: populate map
