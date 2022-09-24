@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.OIConstants;
@@ -48,6 +49,7 @@ public class RobotContainer {
 	private JoystickButton driverBButton = new JoystickButton(driverJoystick, 2);
   private JoystickButton driverXButton = new JoystickButton(driverJoystick, 3);
   private JoystickButton driverYButton = new JoystickButton(driverJoystick, 4);
+  private JoystickButton driverLeftBumper = new JoystickButton(driverJoystick, 5);
   private JoystickButton driverRightBumper = new JoystickButton(driverJoystick, 6);
 
   private JoystickButton operatorAButton = new JoystickButton(operatorJoystick,1);
@@ -79,6 +81,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     driverRightBumper.whileHeld(new AutoAlign(swerveSubsystem, limelight));
+    driverLeftBumper.whileHeld(new IntakeCommand(intake, IntakeState.INTAKE, index));
+    driverYButton.whenPressed(new InstantCommand(() -> swerveSubsystem.zeroHeading()));
 
     operatorAButton.whileHeld(new IntakeCommand(intake, IntakeState.INTAKE, index));
     operatorBButton.whileHeld(new TeleOpShooter(shooter, ShooterState.DYNAMIC, hood, index));

@@ -98,9 +98,9 @@ public final class Constants {
     }
 
     public static final class AutoConstants {
-        public static final double kMaxSpeedMetersPerSecond = DriveConstants.kPhysicalMaxSpeedMetersPerSecond / 2;
+        public static final double kMaxSpeedMetersPerSecond = DriveConstants.kPhysicalMaxSpeedMetersPerSecond / 1.9;
         public static final double kMaxAngularSpeedRadiansPerSecond = //
-                DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond / 3;
+                DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond / 2.5;
         public static final double kMaxAccelerationMetersPerSecondSquared = 3;
         public static final double kMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 2;
         public static final double kPXController = .7;
@@ -205,7 +205,7 @@ public final class Constants {
         public static final int kClimbMotorGearRatio = 1 / 16;
 
         //Pivot PID
-        public static final double kPivotFF = 0.002;
+        public static final double kPivotFF = 0.05;
         public static final double kPivotP = 0.025;
         public static final double kPivotD = 0;
 

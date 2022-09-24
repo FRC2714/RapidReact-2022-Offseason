@@ -65,7 +65,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void deployPivot() {
-    setPivotAngle(-30);
+    setPivotAngle(-34);
   }
 
   public void periodic() {

@@ -51,12 +51,12 @@ public class FiveBallAuto extends SequentialCommandGroup {
 			PathGenerator.PathCommand(swerveSubsystem,
 				List.of(
           new Pose2d(Units.feetToMeters(17.68), Units.feetToMeters(6.74), Rotation2d.fromDegrees(-143.00)), 
-          new Pose2d(Units.feetToMeters(5.039), Units.feetToMeters(5.334), Rotation2d.fromDegrees(-135.00))),
+          new Pose2d(Units.feetToMeters(4.46), Units.feetToMeters(4.67), Rotation2d.fromDegrees(-135.00))),
 				AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
     CustomSwerveControllerCommand splineToWaiting =
 			PathGenerator.PathCommand(swerveSubsystem,
 				List.of(
-          new Pose2d(Units.feetToMeters(5.039), Units.feetToMeters(5.334), Rotation2d.fromDegrees(-135.00)),  
+          new Pose2d(Units.feetToMeters(4.46), Units.feetToMeters(4.67), Rotation2d.fromDegrees(-135.00)),  
           new Pose2d(Units.feetToMeters(7.04), Units.feetToMeters(7.25), Rotation2d.fromDegrees(-135.00))),
 				AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
     CustomSwerveControllerCommand splineToGoal =
@@ -75,7 +75,7 @@ public class FiveBallAuto extends SequentialCommandGroup {
       ),
       //shoot first two balls
       deadline(
-        new TeleOpShooter(shooter, ShooterState.DYNAMIC, hood, index).withTimeout(1.5), 
+        new TeleOpShooter(shooter, ShooterState.DYNAMIC, hood, index).withTimeout(1.25), 
         new AutoAlign(swerveSubsystem, limelight)
       ),
       //move to third ball
@@ -85,7 +85,7 @@ public class FiveBallAuto extends SequentialCommandGroup {
       ),
       //shoot third ball
       deadline(
-        new TeleOpShooter(shooter, ShooterState.DYNAMIC, hood, index).withTimeout(1.0), 
+        new TeleOpShooter(shooter, ShooterState.DYNAMIC, hood, index).withTimeout(1.5), 
         new AutoAlign(swerveSubsystem, limelight),
         new IntakeCommand(intake, IntakeState.AUTO, index)
       ),
