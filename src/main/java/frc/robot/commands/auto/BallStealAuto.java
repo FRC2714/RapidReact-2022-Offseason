@@ -69,8 +69,8 @@ public class BallStealAuto extends SequentialCommandGroup {
       ),
       //shoot first two balls
       deadline(
+        new TeleOpShooter(shooter, ShooterState.DYNAMIC, hood, index).withTimeout(2.5), 
         new IntakeCommand(intake, IntakeState.AUTO, index),
-        new TeleOpShooter(shooter, ShooterState.DYNAMIC, hood, index).withTimeout(1.0), 
         new AutoAlign(swerveSubsystem, limelight)
       ),
       //move to and intake opposing hanger ball

@@ -151,8 +151,8 @@ public final class Constants {
         public static final int kRightShooterMotorPort = 10;
         
         public static final double kVelocityTolerance = 80;
-        public static final double kShooterFF = 0.000184;
-        public static final double kShooterP = 0.00018;
+        public static final double kShooterFF = 0.00018;
+        public static final double kShooterP = 0.000;
         public static final double kShooterI = 0;
         public static final double kShooterD = 0;
 
@@ -206,7 +206,7 @@ public final class Constants {
 
         //Pivot PID
         public static final double kPivotFF = 0.05;
-        public static final double kPivotP = 0.025;
+        public static final double kPivotP = 0.04;
         public static final double kPivotD = 0;
 
         //Climb PID

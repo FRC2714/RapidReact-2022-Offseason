@@ -38,6 +38,8 @@ public class Shooter extends SubsystemBase {
     LeftShooterMotor.setIdleMode(IdleMode.kCoast);
     RightShooterMotor.setIdleMode(IdleMode.kCoast);
 
+    LeftShooterMotor.enableVoltageCompensation(12);
+
     LeftShooterMotor.setSmartCurrentLimit(40);
     RightShooterMotor.setSmartCurrentLimit(40);
 
@@ -68,13 +70,14 @@ public class Shooter extends SubsystemBase {
   
 
   private void populateVelocityMap() {
-        shooterVelocity.put(4.5, 2400.0);
-        shooterVelocity.put(7.0, 2600.0);
-        shooterVelocity.put(10.0, 2800.0);
-        shooterVelocity.put(12.0, 3000.0);
-        shooterVelocity.put(14.0, 3250.0);
-        shooterVelocity.put(16.5, 3550.0);
-        shooterVelocity.put(20.0, 3850.0);
+        shooterVelocity.put(4.5, 2700.0);
+        shooterVelocity.put(7.0, 3200.0);
+        shooterVelocity.put(8.5, 3400.0);
+        shooterVelocity.put(10.0, 3500.0);
+        shooterVelocity.put(12.0, 3700.0);
+        shooterVelocity.put(14.0, 3950.0);
+        shooterVelocity.put(16.5, 4150.0);
+        shooterVelocity.put(20.0, 4300.0);
   }
 
   public void setShooterPower(double power) {
@@ -90,6 +93,7 @@ public class Shooter extends SubsystemBase {
     this.targetRPM = targetRPM;
     shooterPID.setReference(-targetRPM, ControlType.kVelocity);
   }
+
 
   public void setDynamicRpm() {
     setTargetRpm(getTargetRpm());
