@@ -70,14 +70,14 @@ public class Shooter extends SubsystemBase {
   // shooterVelocity.put(20.0, 3750.0);
 
   private void populateVelocityMap() {
-    shooterVelocity.put(4.5, 2700.0);
-    shooterVelocity.put(7.0, 3200.0);
-    shooterVelocity.put(8.5, 3400.0);
-    shooterVelocity.put(10.0, 3500.0);
-    shooterVelocity.put(12.0, 3700.0);
-    shooterVelocity.put(14.0, 3950.0);
-    shooterVelocity.put(16.5, 4150.0);
-    shooterVelocity.put(20.0, 4300.0);
+        shooterVelocity.put(5.5, 2300.0);
+        shooterVelocity.put(7.5, 2400.0);
+        shooterVelocity.put(9.0, 2600.0);
+        shooterVelocity.put(10.5, 2800.0);
+        shooterVelocity.put(12.5, 2900.0);
+        shooterVelocity.put(14.5, 3100.0);
+        shooterVelocity.put(17.0, 3350.0);
+        shooterVelocity.put(20.0, 3500.0);
   }
 
   public void setShooterPower(double power) {
