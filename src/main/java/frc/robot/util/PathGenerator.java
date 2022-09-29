@@ -11,11 +11,9 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.SwerveSubsystem;
 
-
 import java.util.List;
 
 public class PathGenerator {
-
 
     private static TrajectoryConfig getConfig(double maxVel, double maxAcc) {
 
@@ -26,10 +24,10 @@ public class PathGenerator {
     }
 
     public static CustomSwerveControllerCommand PathCommand(SwerveSubsystem swerveSubsystem,
-                                                         Pose2d startPose,
-                                                         List<Translation2d> internalPoints,
-                                                         Pose2d endPose,
-                                                         double velocity, double acceleration) {
+            Pose2d startPose,
+            List<Translation2d> internalPoints,
+            Pose2d endPose,
+            double velocity, double acceleration) {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 startPose,
 
@@ -37,31 +35,28 @@ public class PathGenerator {
 
                 endPose,
 
-                getConfig(velocity, acceleration)
-        );
+                getConfig(velocity, acceleration));
 
         return getPathCommand(swerveSubsystem, trajectory);
     }
-
 
     public static CustomSwerveControllerCommand PathCommand(SwerveSubsystem swerveSubsystem,
-                                                         List<Pose2d> waypoints,
-                                                         double velocity, double acceleration) {
+            List<Pose2d> waypoints,
+            double velocity, double acceleration) {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 waypoints,
-                getConfig(velocity, acceleration)
-        );
+                getConfig(velocity, acceleration));
 
         return getPathCommand(swerveSubsystem, trajectory);
     }
 
-
-    private static CustomSwerveControllerCommand getPathCommand(SwerveSubsystem swerveSubsystem, Trajectory trajectory) {
+    private static CustomSwerveControllerCommand getPathCommand(SwerveSubsystem swerveSubsystem,
+            Trajectory trajectory) {
         PIDController xController = new PIDController(AutoConstants.kPXController, 0, 0);
         PIDController yController = new PIDController(AutoConstants.kPYController, 0, 0);
         ProfiledPIDController thetaController = new ProfiledPIDController(
-            AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
-            thetaController.enableContinuousInput(Math.PI, -Math.PI);
+                AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
+        thetaController.enableContinuousInput(Math.PI, -Math.PI);
 
         return new CustomSwerveControllerCommand(
                 trajectory,
@@ -71,8 +66,7 @@ public class PathGenerator {
                 yController,
                 thetaController,
                 swerveSubsystem::setModuleStates,
-                swerveSubsystem
-        );
+                swerveSubsystem);
     }
 
 }

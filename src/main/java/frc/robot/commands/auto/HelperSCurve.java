@@ -12,13 +12,11 @@ import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.util.CustomSwerveControllerCommand;
 import frc.robot.util.PathGenerator;
 
-
 public class HelperSCurve extends SequentialCommandGroup {
 
-        public HelperSCurve(SwerveSubsystem swerveSubsystem) {
+    public HelperSCurve(SwerveSubsystem swerveSubsystem) {
 
-            CustomSwerveControllerCommand SCurve =
-                PathGenerator.PathCommand(swerveSubsystem,
+        CustomSwerveControllerCommand SCurve = PathGenerator.PathCommand(swerveSubsystem,
                 new Pose2d(0, 0, new Rotation2d(0)),
                 List.of(
                         new Translation2d(1, 0),
@@ -26,15 +24,13 @@ public class HelperSCurve extends SequentialCommandGroup {
                 new Pose2d(2, -1, Rotation2d.fromDegrees(180)),
                 AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
 
-        
+        addCommands(
+                new InstantCommand(() -> swerveSubsystem.resetOdometry(SCurve.getInitialPose())),
+                SCurve,
+                new InstantCommand(() -> swerveSubsystem.stopModules())
 
-               addCommands(
-                    new InstantCommand(() -> swerveSubsystem.resetOdometry(SCurve.getInitialPose())),
-                    SCurve,
-                    new InstantCommand(() -> swerveSubsystem.stopModules())
-                   
-               );
-               
-        }
+        );
 
     }
+
+}

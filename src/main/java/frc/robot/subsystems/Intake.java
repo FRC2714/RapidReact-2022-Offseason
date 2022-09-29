@@ -38,9 +38,9 @@ public class Intake extends SubsystemBase {
     pivotPIDController.setFF(IntakeConstants.kFF);
     pivotPIDController.setD(IntakeConstants.kD);
 
-   
   }
-  public void setPower(double power){
+
+  public void setPower(double power) {
     intakeMotor.set(power);
   }
 
@@ -72,5 +72,4 @@ public class Intake extends SubsystemBase {
     SmartDashboard.putNumber("intake position", pivotEncoder.getPosition());
   }
 
-  
 }

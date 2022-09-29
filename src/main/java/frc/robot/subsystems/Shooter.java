@@ -27,13 +27,15 @@ public class Shooter extends SubsystemBase {
 
   private double defaultRPM = 200;
   private double targetRPM = 0;
-  
+
   public Shooter(Limelight limelight) {
 
     this.limelight = limelight;
 
-    LeftShooterMotor = new CANSparkMax(ShooterConstants.kLeftShooterMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
-    RightShooterMotor = new CANSparkMax(ShooterConstants.kRightShooterMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
+    LeftShooterMotor = new CANSparkMax(ShooterConstants.kLeftShooterMotorPort,
+        CANSparkMaxLowLevel.MotorType.kBrushless);
+    RightShooterMotor = new CANSparkMax(ShooterConstants.kRightShooterMotorPort,
+        CANSparkMaxLowLevel.MotorType.kBrushless);
 
     LeftShooterMotor.setIdleMode(IdleMode.kCoast);
     RightShooterMotor.setIdleMode(IdleMode.kCoast);
@@ -60,24 +62,22 @@ public class Shooter extends SubsystemBase {
 
   }
 
-  
   // shooterVelocity.put(7.0, 2500.0);
   // shooterVelocity.put(10.0, 2700.0);
   // shooterVelocity.put(12.0, 2900.0);
   // shooterVelocity.put(14.0, 3150.0);
   // shooterVelocity.put(16.5, 3450.0);
   // shooterVelocity.put(20.0, 3750.0);
-  
 
   private void populateVelocityMap() {
-        shooterVelocity.put(4.5, 2700.0);
-        shooterVelocity.put(7.0, 3200.0);
-        shooterVelocity.put(8.5, 3400.0);
-        shooterVelocity.put(10.0, 3500.0);
-        shooterVelocity.put(12.0, 3700.0);
-        shooterVelocity.put(14.0, 3950.0);
-        shooterVelocity.put(16.5, 4150.0);
-        shooterVelocity.put(20.0, 4300.0);
+    shooterVelocity.put(4.5, 2700.0);
+    shooterVelocity.put(7.0, 3200.0);
+    shooterVelocity.put(8.5, 3400.0);
+    shooterVelocity.put(10.0, 3500.0);
+    shooterVelocity.put(12.0, 3700.0);
+    shooterVelocity.put(14.0, 3950.0);
+    shooterVelocity.put(16.5, 4150.0);
+    shooterVelocity.put(20.0, 4300.0);
   }
 
   public void setShooterPower(double power) {
@@ -86,14 +86,14 @@ public class Shooter extends SubsystemBase {
 
   public double getTargetRpm() {
     return limelight.targetVisible()
-        ? shooterVelocity.getInterpolated(Units.metersToFeet(limelight.getDistanceToGoal())) : defaultRPM;
+        ? shooterVelocity.getInterpolated(Units.metersToFeet(limelight.getDistanceToGoal()))
+        : defaultRPM;
   }
 
   public void setTargetRpm(double targetRPM) {
     this.targetRPM = targetRPM;
     shooterPID.setReference(-targetRPM, ControlType.kVelocity);
   }
-
 
   public void setDynamicRpm() {
     setTargetRpm(getTargetRpm());
@@ -111,9 +111,8 @@ public class Shooter extends SubsystemBase {
     return Math.abs(targetRPM + getVelocity()) < ShooterConstants.kVelocityTolerance;
   }
 
-
   public void disable() {
-   setShooterPower(0);
+    setShooterPower(0);
   }
 
   @Override

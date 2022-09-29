@@ -33,7 +33,7 @@ public class Climber extends SubsystemBase {
     RightClimbEncoder = RightClimbMotor.getEncoder();
 
     LeftClimbMotor.setSoftLimit(SoftLimitDirection.kForward, -105);
-    
+
     RightPivotMotor.follow(LeftPivotMotor, true);
     RightClimbMotor.follow(LeftClimbMotor, true);
 
@@ -47,26 +47,27 @@ public class Climber extends SubsystemBase {
     RightPivotEncoder.setPosition(0);
     RightClimbEncoder.setPosition(0);
 
-    //LeftClimbMotor.setSoftLimit(SoftLimitDirection.kForward, ClimbConstants.kMaxHeight);
+    // LeftClimbMotor.setSoftLimit(SoftLimitDirection.kForward,
+    // ClimbConstants.kMaxHeight);
 
-    //Set Current Limits
+    // Set Current Limits
     LeftClimbMotor.setSmartCurrentLimit(50);
     RightClimbMotor.setSmartCurrentLimit(50);
 
-    //Pivot PID
+    // Pivot PID
     pivotPIDController = LeftPivotMotor.getPIDController();
     pivotPIDController.setFF(ClimbConstants.kPivotFF);
     pivotPIDController.setP(ClimbConstants.kPivotP);
     pivotPIDController.setP(ClimbConstants.kPivotD);
 
-    //Climb PID
+    // Climb PID
     climbPIDController = LeftClimbMotor.getPIDController();
     climbPIDController.setFF(ClimbConstants.kClimbFF);
     climbPIDController.setP(ClimbConstants.kClimbP);
 
   }
 
-  //Pivot
+  // Pivot
   public void pivotDown() {
     LeftPivotMotor.set(ClimbConstants.kPivotSpeed);
   }
@@ -79,7 +80,7 @@ public class Climber extends SubsystemBase {
     pivotPIDController.setReference(position, CANSparkMax.ControlType.kPosition);
   }
 
-  //Climber
+  // Climber
   public void climberUp() {
     LeftClimbMotor.set(ClimbConstants.kClimbSpeed);
   }
@@ -88,7 +89,7 @@ public class Climber extends SubsystemBase {
     LeftClimbMotor.set(-ClimbConstants.kClimbSpeed);
   }
 
-  //Stop
+  // Stop
   public void stopPivot() {
     LeftPivotMotor.set(0);
   }
@@ -102,7 +103,7 @@ public class Climber extends SubsystemBase {
     LeftClimbMotor.set(0);
   }
 
-  //Get Position
+  // Get Position
   public void getPivotPosition() {
     LeftPivotEncoder.getPosition();
   }
@@ -116,7 +117,7 @@ public class Climber extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Left Pivot Encoder", LeftPivotEncoder.getPosition());
     SmartDashboard.putNumber("Right Pivot Encoder", RightPivotEncoder.getPosition());
-    
+
     SmartDashboard.putNumber("Left Climb Encoder", LeftClimbEncoder.getPosition());
     SmartDashboard.putNumber("Right Climb Encoder", RightClimbEncoder.getPosition());
   }

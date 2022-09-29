@@ -51,7 +51,6 @@ public class SwerveSubsystem extends SubsystemBase {
             DriveConstants.kBackRightDriveAbsoluteEncoderOffsetRad,
             DriveConstants.kBackRightDriveAbsoluteEncoderReversed);
 
-
     private final AHRS gyro = new AHRS(Port.kMXP);
     private final SwerveDriveOdometry odometer = new SwerveDriveOdometry(DriveConstants.kDriveKinematics,
             new Rotation2d());
@@ -72,7 +71,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
     public double getHeading() {
         return gyro.getRotation2d().getDegrees();
-      }
+    }
 
     public Rotation2d getRotation2d() {
         return Rotation2d.fromDegrees(getHeading());
@@ -95,8 +94,6 @@ public class SwerveSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("Robot Y", Units.metersToFeet(getPose().getTranslation().getY()));
         SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
     }
-
-   
 
     public void stopModules() {
         frontLeft.stop();

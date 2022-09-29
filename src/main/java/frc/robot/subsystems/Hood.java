@@ -48,11 +48,9 @@ public class Hood extends SubsystemBase {
     hoodPID.setSmartMotionMaxAccel(HoodConstants.kMaxAcc, 0);
     hoodPID.setSmartMotionAllowedClosedLoopError(HoodConstants.kPositionTolerance, 0);
 
-
     hoodEncoder.setPosition(0);
     hoodMotor.setSoftLimit(SoftLimitDirection.kForward, HoodConstants.kTopLimit);
     hoodMotor.setSoftLimit(SoftLimitDirection.kReverse, HoodConstants.kBottomLimit);
-
 
     populateMap();
 
@@ -75,7 +73,7 @@ public class Hood extends SubsystemBase {
     hoodPosition.put(12.0, 29.0);
     hoodPosition.put(14.0, 33.0);
     hoodPosition.put(16.5, 38.0);
-    hoodPosition.put(20.0, 40.0); 
+    hoodPosition.put(20.0, 40.0);
   } // TODO: populate map
 
   public void setDefault() {
@@ -92,7 +90,8 @@ public class Hood extends SubsystemBase {
 
   public double getTargetPosition() {
     return limelight.targetVisible()
-        ? hoodPosition.getInterpolated(Units.metersToFeet(limelight.getDistanceToGoal())) : defaultPosition;
+        ? hoodPosition.getInterpolated(Units.metersToFeet(limelight.getDistanceToGoal()))
+        : defaultPosition;
   }
 
   public void setDynamicPosition() {

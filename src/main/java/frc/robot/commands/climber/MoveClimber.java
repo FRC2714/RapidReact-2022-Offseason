@@ -31,12 +31,6 @@ public class MoveClimber extends CommandBase {
       case RETRACT:
         climber.climberDown();
         break;
-      case REACH:
-        climber.setPivot(10);
-        break;
-      case PULL:
-        climber.setPivot(0);
-        break;
       case STOP:
         climber.disable();
     }
@@ -51,8 +45,6 @@ public class MoveClimber extends CommandBase {
   public enum ClimberState{
     EXTEND,
     RETRACT,
-    REACH,
-    PULL,
     STOP
 }
 

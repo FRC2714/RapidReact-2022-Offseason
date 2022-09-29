@@ -43,8 +43,8 @@ public class Index extends SubsystemBase {
     }
 
     public void moveAll(double power) {
-       setIndexPower(power);
-       setRollerPower(power);
+        setIndexPower(power);
+        setRollerPower(power);
     }
 
     public void disable() {
@@ -55,8 +55,7 @@ public class Index extends SubsystemBase {
         this.indexState = indexState;
     }
 
-    public void 
-    IndexMotion() {
+    public void IndexMotion() {
         if (indexState == IndexState.SHOOTING) {
             moveAll(.5);
         } else {
@@ -78,13 +77,12 @@ public class Index extends SubsystemBase {
                 if (getRollerBreakbeam()) {
                     moveAll(.5);
                 }
-                
+
             } else {
                 moveAll(0);
             }
         }
     }
-
 
     public void periodic() {
         SmartDashboard.putBoolean("INDEX BEAM", getIndexBreakbeam());

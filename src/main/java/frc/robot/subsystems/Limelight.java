@@ -7,24 +7,23 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-
-
 public class Limelight extends SubsystemBase {
-    
+
     private double tx, ty, tv, distance = 0;
 
     private NetworkTable limelight;
-    private static final double kCameraToGoalHeight =
-            Constants.FieldConstants.kGoalHeight - Constants.CameraConstants.kCameraHeight;
-
+    private static final double kCameraToGoalHeight = Constants.FieldConstants.kGoalHeight
+            - Constants.CameraConstants.kCameraHeight;
 
     public Limelight() {
-                limelight = NetworkTableInstance.getDefault().getTable("limelight");
+        limelight = NetworkTableInstance.getDefault().getTable("limelight");
     }
 
     private double internalGetDistanceToGoal() {
-        if (getYAngleOffset() == -1) return -1;
-        return kCameraToGoalHeight / Math.tan(Math.toRadians(Constants.CameraConstants.kMountingAngle + getYAngleOffset()));
+        if (getYAngleOffset() == -1)
+            return -1;
+        return kCameraToGoalHeight
+                / Math.tan(Math.toRadians(Constants.CameraConstants.kMountingAngle + getYAngleOffset()));
     }
 
     public double getDistanceToGoal() {
@@ -38,7 +37,7 @@ public class Limelight extends SubsystemBase {
     public double getXAngleOffset() {
         return -1 * tx;
     }
-    
+
     public double getXRadianOffset() {
         return getXAngleOffset() * Math.PI / 180;
     }
@@ -47,7 +46,6 @@ public class Limelight extends SubsystemBase {
         double tv = limelight.getEntry("tv").getDouble(0.0);
         return tv != 0.0;
     }
-
 
     public void setPipeline(double numPipeline) {
         limelight.getEntry("pipeline").setDouble(numPipeline);

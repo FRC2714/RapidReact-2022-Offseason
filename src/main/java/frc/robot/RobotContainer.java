@@ -27,9 +27,12 @@ import frc.robot.commands.shooter.TeleOpShooter;
 import frc.robot.commands.shooter.TeleOpShooter.ShooterState;
 
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
@@ -46,37 +49,41 @@ public class RobotContainer {
   private final Joystick operatorJoystick = new Joystick(1);
 
   private JoystickButton driverAButton = new JoystickButton(driverJoystick, 1);
-	private JoystickButton driverBButton = new JoystickButton(driverJoystick, 2);
+  private JoystickButton driverBButton = new JoystickButton(driverJoystick, 2);
   private JoystickButton driverXButton = new JoystickButton(driverJoystick, 3);
   private JoystickButton driverYButton = new JoystickButton(driverJoystick, 4);
   private JoystickButton driverLeftBumper = new JoystickButton(driverJoystick, 5);
   private JoystickButton driverRightBumper = new JoystickButton(driverJoystick, 6);
 
-  private JoystickButton operatorAButton = new JoystickButton(operatorJoystick,1);
-  private JoystickButton operatorBButton = new JoystickButton(operatorJoystick,2);
-  private JoystickButton operatorXButton = new JoystickButton(operatorJoystick,3);
-  private JoystickButton operatorYButton = new JoystickButton(operatorJoystick,4);
+  private JoystickButton operatorAButton = new JoystickButton(operatorJoystick, 1);
+  private JoystickButton operatorBButton = new JoystickButton(operatorJoystick, 2);
+  private JoystickButton operatorXButton = new JoystickButton(operatorJoystick, 3);
+  private JoystickButton operatorYButton = new JoystickButton(operatorJoystick, 4);
   private POVButton operatorDPadUp = new POVButton(operatorJoystick, 0);
-	private POVButton operatorDPadLeft = new POVButton(operatorJoystick, 90);
-	private POVButton operatorDPadDown = new POVButton(operatorJoystick, 180);
-	private POVButton operatorDPadRight = new POVButton(operatorJoystick, 270);
+  private POVButton operatorDPadLeft = new POVButton(operatorJoystick, 90);
+  private POVButton operatorDPadDown = new POVButton(operatorJoystick, 180);
+  private POVButton operatorDPadRight = new POVButton(operatorJoystick, 270);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
     swerveSubsystem.setDefaultCommand(new JoystickCommand(
-      swerveSubsystem,
-      () -> -driverJoystick.getRawAxis(OIConstants.kDriverYAxis),
-      () -> -driverJoystick.getRawAxis(OIConstants.kDriverXAxis),
-      () -> -driverJoystick.getRawAxis(OIConstants.kDriverRotAxis),
-      () -> driverJoystick.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
+        swerveSubsystem,
+        () -> -driverJoystick.getRawAxis(OIConstants.kDriverYAxis),
+        () -> -driverJoystick.getRawAxis(OIConstants.kDriverXAxis),
+        () -> -driverJoystick.getRawAxis(OIConstants.kDriverRotAxis),
+        () -> driverJoystick.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
 
     configureButtonBindings();
   }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be created by
+   * Use this method to define your button->command mappings. Buttons can be
+   * created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
+   * it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
@@ -89,9 +96,7 @@ public class RobotContainer {
     operatorXButton.whileHeld(new IntakeCommand(intake, IntakeState.EXTAKE, index));
 
     operatorDPadUp.whileHeld(new MoveClimber(climber, ClimberState.EXTEND));
-		operatorDPadDown.whileHeld(new MoveClimber(climber, ClimberState.RETRACT));
-		operatorDPadLeft.whileHeld(new MoveClimber(climber, ClimberState.REACH));
-		operatorDPadRight.whileHeld(new MoveClimber(climber, ClimberState.PULL));
+    operatorDPadDown.whileHeld(new MoveClimber(climber, ClimberState.RETRACT));
   }
 
   /**
@@ -100,8 +105,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getSCurveAuto() {
-		return new SCurve(swerveSubsystem);
-	}
+    return new SCurve(swerveSubsystem);
+  }
 
   public Command getHelperSCurveAuto() {
     return new HelperSCurve(swerveSubsystem);
@@ -119,4 +124,3 @@ public class RobotContainer {
     return new FiveBallAuto(swerveSubsystem, limelight, shooter, hood, intake, index);
   }
 }
-

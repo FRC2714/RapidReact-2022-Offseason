@@ -8,7 +8,6 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.ProfiledPIDCommand;
-import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -19,6 +18,7 @@ import frc.robot.subsystems.SwerveSubsystem;
 public class AutoAlign extends ProfiledPIDCommand {
   private SwerveSubsystem swerveSubsystem;
   private Limelight limelight;
+
   /** Creates a new AutoAlign. */
   public AutoAlign(SwerveSubsystem swerveSubsystem, Limelight limelight) {
     super(
@@ -29,19 +29,20 @@ public class AutoAlign extends ProfiledPIDCommand {
             0,
             0.01,
             // The motion profile constraints
-            new TrapezoidProfile.Constraints(DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond, DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond)),
+            new TrapezoidProfile.Constraints(DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond,
+                DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond)),
         // This should return the measurement
         limelight::getXRadianOffset,
         // This should return the goal (can also be a constant)
         0,
         // This uses the output
-        (output, setpoint) -> swerveSubsystem.rawDrive(new ChassisSpeeds(0,0,output * -6))
-          // Use the output (and setpoint, if desired) here
-        );
-        addRequirements(swerveSubsystem);
-        this.limelight = limelight;
-        this.swerveSubsystem = swerveSubsystem;
-        getController().setTolerance(.05, .2);
+        (output, setpoint) -> swerveSubsystem.rawDrive(new ChassisSpeeds(0, 0, output * -6))
+    // Use the output (and setpoint, if desired) here
+    );
+    addRequirements(swerveSubsystem);
+    this.limelight = limelight;
+    this.swerveSubsystem = swerveSubsystem;
+    getController().setTolerance(.05, .2);
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
   }
@@ -53,7 +54,7 @@ public class AutoAlign extends ProfiledPIDCommand {
   }
 
   @Override
-  public void end(boolean interrupted){
-      swerveSubsystem.stopModules();
+  public void end(boolean interrupted) {
+    swerveSubsystem.stopModules();
   }
 }

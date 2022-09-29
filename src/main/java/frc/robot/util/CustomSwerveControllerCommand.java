@@ -22,17 +22,25 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * A command that uses two PID controllers ({@link PIDController}) and a ProfiledPIDController
- * ({@link ProfiledPIDController}) to follow a trajectory {@link Trajectory} with a swerve drive.
+ * A command that uses two PID controllers ({@link PIDController}) and a
+ * ProfiledPIDController
+ * ({@link ProfiledPIDController}) to follow a trajectory {@link Trajectory}
+ * with a swerve drive.
  *
- * <p>This command outputs the raw desired Swerve Module States ({@link SwerveModuleState}) in an
- * array. The desired wheel and module rotation velocities should be taken from those and used in
+ * <p>
+ * This command outputs the raw desired Swerve Module States
+ * ({@link SwerveModuleState}) in an
+ * array. The desired wheel and module rotation velocities should be taken from
+ * those and used in
  * velocity PIDs.
  *
- * <p>The robot angle controller does not follow the angle given by the trajectory but rather goes
+ * <p>
+ * The robot angle controller does not follow the angle given by the trajectory
+ * but rather goes
  * to the angle given in the final state of the trajectory.
  *
- * <p>This class is provided by the NewCommands VendorDep
+ * <p>
+ * This class is provided by the NewCommands VendorDep
  */
 @SuppressWarnings("MemberName")
 public class CustomSwerveControllerCommand extends CommandBase {
@@ -45,24 +53,35 @@ public class CustomSwerveControllerCommand extends CommandBase {
   private final Supplier<Rotation2d> m_desiredRotation;
 
   /**
-   * Constructs a new SwerveControllerCommand that when executed will follow the provided
-   * trajectory. This command will not return output voltages but rather raw module states from the
+   * Constructs a new SwerveControllerCommand that when executed will follow the
+   * provided
+   * trajectory. This command will not return output voltages but rather raw
+   * module states from the
    * position controllers which need to be put into a velocity PID.
    *
-   * <p>Note: The controllers will *not* set the outputVolts to zero upon completion of the path-
-   * this is left to the user, since it is not appropriate for paths with nonstationary endstates.
+   * <p>
+   * Note: The controllers will *not* set the outputVolts to zero upon completion
+   * of the path-
+   * this is left to the user, since it is not appropriate for paths with
+   * nonstationary endstates.
    *
-   * @param trajectory The trajectory to follow.
-   * @param pose A function that supplies the robot pose - use one of the odometry classes to
-   *     provide this.
-   * @param kinematics The kinematics for the robot drivetrain.
-   * @param xController The Trajectory Tracker PID controller for the robot's x position.
-   * @param yController The Trajectory Tracker PID controller for the robot's y position.
-   * @param thetaController The Trajectory Tracker PID controller for angle for the robot.
-   * @param desiredRotation The angle that the drivetrain should be facing. This is sampled at each
-   *     time step.
-   * @param outputModuleStates The raw output module states from the position controllers.
-   * @param requirements The subsystems to require.
+   * @param trajectory         The trajectory to follow.
+   * @param pose               A function that supplies the robot pose - use one
+   *                           of the odometry classes to
+   *                           provide this.
+   * @param kinematics         The kinematics for the robot drivetrain.
+   * @param xController        The Trajectory Tracker PID controller for the
+   *                           robot's x position.
+   * @param yController        The Trajectory Tracker PID controller for the
+   *                           robot's y position.
+   * @param thetaController    The Trajectory Tracker PID controller for angle for
+   *                           the robot.
+   * @param desiredRotation    The angle that the drivetrain should be facing.
+   *                           This is sampled at each
+   *                           time step.
+   * @param outputModuleStates The raw output module states from the position
+   *                           controllers.
+   * @param requirements       The subsystems to require.
    */
   @SuppressWarnings("ParameterName")
   public CustomSwerveControllerCommand(
@@ -79,43 +98,54 @@ public class CustomSwerveControllerCommand extends CommandBase {
     m_pose = requireNonNullParam(pose, "pose", "SwerveControllerCommand");
     m_kinematics = requireNonNullParam(kinematics, "kinematics", "SwerveControllerCommand");
 
-    m_controller =
-        new HolonomicDriveController(
-            requireNonNullParam(xController, "xController", "SwerveControllerCommand"),
-            requireNonNullParam(yController, "yController", "SwerveControllerCommand"),
-            requireNonNullParam(thetaController, "thetaController", "SwerveControllerCommand"));
+    m_controller = new HolonomicDriveController(
+        requireNonNullParam(xController, "xController", "SwerveControllerCommand"),
+        requireNonNullParam(yController, "yController", "SwerveControllerCommand"),
+        requireNonNullParam(thetaController, "thetaController", "SwerveControllerCommand"));
 
-    m_outputModuleStates =
-        requireNonNullParam(outputModuleStates, "outputModuleStates", "SwerveControllerCommand");
+    m_outputModuleStates = requireNonNullParam(outputModuleStates, "outputModuleStates", "SwerveControllerCommand");
 
-    m_desiredRotation =
-        requireNonNullParam(desiredRotation, "desiredRotation", "SwerveControllerCommand");
+    m_desiredRotation = requireNonNullParam(desiredRotation, "desiredRotation", "SwerveControllerCommand");
 
     addRequirements(requirements);
   }
 
   /**
-   * Constructs a new SwerveControllerCommand that when executed will follow the provided
-   * trajectory. This command will not return output voltages but rather raw module states from the
+   * Constructs a new SwerveControllerCommand that when executed will follow the
+   * provided
+   * trajectory. This command will not return output voltages but rather raw
+   * module states from the
    * position controllers which need to be put into a velocity PID.
    *
-   * <p>Note: The controllers will *not* set the outputVolts to zero upon completion of the path-
-   * this is left to the user, since it is not appropriate for paths with nonstationary endstates.
+   * <p>
+   * Note: The controllers will *not* set the outputVolts to zero upon completion
+   * of the path-
+   * this is left to the user, since it is not appropriate for paths with
+   * nonstationary endstates.
    *
-   * <p>Note 2: The final rotation of the robot will be set to the rotation of the final pose in the
-   * trajectory. The robot will not follow the rotations from the poses at each timestep. If
-   * alternate rotation behavior is desired, the other constructor with a supplier for rotation
+   * <p>
+   * Note 2: The final rotation of the robot will be set to the rotation of the
+   * final pose in the
+   * trajectory. The robot will not follow the rotations from the poses at each
+   * timestep. If
+   * alternate rotation behavior is desired, the other constructor with a supplier
+   * for rotation
    * should be used.
    *
-   * @param trajectory The trajectory to follow.
-   * @param pose A function that supplies the robot pose - use one of the odometry classes to
-   *     provide this.
-   * @param kinematics The kinematics for the robot drivetrain.
-   * @param xController The Trajectory Tracker PID controller for the robot's x position.
-   * @param yController The Trajectory Tracker PID controller for the robot's y position.
-   * @param thetaController The Trajectory Tracker PID controller for angle for the robot.
-   * @param outputModuleStates The raw output module states from the position controllers.
-   * @param requirements The subsystems to require.
+   * @param trajectory         The trajectory to follow.
+   * @param pose               A function that supplies the robot pose - use one
+   *                           of the odometry classes to
+   *                           provide this.
+   * @param kinematics         The kinematics for the robot drivetrain.
+   * @param xController        The Trajectory Tracker PID controller for the
+   *                           robot's x position.
+   * @param yController        The Trajectory Tracker PID controller for the
+   *                           robot's y position.
+   * @param thetaController    The Trajectory Tracker PID controller for angle for
+   *                           the robot.
+   * @param outputModuleStates The raw output module states from the position
+   *                           controllers.
+   * @param requirements       The subsystems to require.
    */
   @SuppressWarnings("ParameterName")
   public CustomSwerveControllerCommand(
@@ -134,8 +164,7 @@ public class CustomSwerveControllerCommand extends CommandBase {
         xController,
         yController,
         thetaController,
-        () ->
-            trajectory.getStates().get(trajectory.getStates().size() - 1).poseMeters.getRotation(),
+        () -> trajectory.getStates().get(trajectory.getStates().size() - 1).poseMeters.getRotation(),
         outputModuleStates,
         requirements);
   }
@@ -152,8 +181,7 @@ public class CustomSwerveControllerCommand extends CommandBase {
     double curTime = m_timer.get();
     var desiredState = m_trajectory.sample(curTime);
 
-    var targetChassisSpeeds =
-        m_controller.calculate(m_pose.get(), desiredState, m_desiredRotation.get());
+    var targetChassisSpeeds = m_controller.calculate(m_pose.get(), desiredState, m_desiredRotation.get());
     var targetModuleStates = m_kinematics.toSwerveModuleStates(targetChassisSpeeds);
 
     m_outputModuleStates.accept(targetModuleStates);
@@ -171,5 +199,5 @@ public class CustomSwerveControllerCommand extends CommandBase {
 
   public Pose2d getInitialPose() {
     return m_trajectory.getInitialPose();
-}
+  }
 }

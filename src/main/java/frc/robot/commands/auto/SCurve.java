@@ -2,7 +2,6 @@ package frc.robot.commands.auto;
 
 import java.util.List;
 
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -18,33 +17,32 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.SwerveSubsystem;
 
-
 public class SCurve extends SequentialCommandGroup {
 
-        public SCurve(SwerveSubsystem swerveSubsystem) {
+    public SCurve(SwerveSubsystem swerveSubsystem) {
         TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
                 AutoConstants.kMaxSpeedMetersPerSecond,
                 AutoConstants.kMaxAccelerationMetersPerSecondSquared)
                         .setKinematics(DriveConstants.kDriveKinematics);
-            
-            // 2. Generate trajectory
-            Trajectory SCurve = TrajectoryGenerator.generateTrajectory(
+
+        // 2. Generate trajectory
+        Trajectory SCurve = TrajectoryGenerator.generateTrajectory(
                 new Pose2d(0, 0, new Rotation2d(0)),
                 List.of(
                         new Translation2d(1, 0),
                         new Translation2d(1, -1)),
                 new Pose2d(2, -1, Rotation2d.fromDegrees(180)),
                 trajectoryConfig);
-            
-            // 3. Define PID controllers for tracking trajectory
-            PIDController xController = new PIDController(AutoConstants.kPXController, 0, 0);
-            PIDController yController = new PIDController(AutoConstants.kPYController, 0, 0);
-            ProfiledPIDController thetaController = new ProfiledPIDController(
+
+        // 3. Define PID controllers for tracking trajectory
+        PIDController xController = new PIDController(AutoConstants.kPXController, 0, 0);
+        PIDController yController = new PIDController(AutoConstants.kPYController, 0, 0);
+        ProfiledPIDController thetaController = new ProfiledPIDController(
                 AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
-            thetaController.enableContinuousInput(-Math.PI, Math.PI);
-            
-            // 4. Construct command to follow trajectory
-            SwerveControllerCommand SCurveCommand = new SwerveControllerCommand(
+        thetaController.enableContinuousInput(-Math.PI, Math.PI);
+
+        // 4. Construct command to follow trajectory
+        SwerveControllerCommand SCurveCommand = new SwerveControllerCommand(
                 SCurve,
                 swerveSubsystem::getPose,
                 DriveConstants.kDriveKinematics,
@@ -54,13 +52,13 @@ public class SCurve extends SequentialCommandGroup {
                 swerveSubsystem::setModuleStates,
                 swerveSubsystem);
 
-               addCommands(
-                    new InstantCommand(() -> swerveSubsystem.resetOdometry(SCurve.getInitialPose())),
-                    SCurveCommand,
-                    new InstantCommand(() -> swerveSubsystem.stopModules())
-                   
-               );
-               
-        }
+        addCommands(
+                new InstantCommand(() -> swerveSubsystem.resetOdometry(SCurve.getInitialPose())),
+                SCurveCommand,
+                new InstantCommand(() -> swerveSubsystem.stopModules())
+
+        );
 
     }
+
+}
