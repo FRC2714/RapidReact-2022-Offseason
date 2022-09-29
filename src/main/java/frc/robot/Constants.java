@@ -176,8 +176,8 @@ public final class Constants {
         public static final int kHoodMotorPort = 11;
 
         public static final double kRotationtoDegrees = 0;
-        public static final float kTopLimit = -40;
-        public static final float kBottomLimit = 0;
+        public static final float kTopLimit = 0;
+        public static final float kBottomLimit = -40;
         public static final double kPositionTolerance = .25;
         public static final double kPositionSetpointTolerance = 2;
 
