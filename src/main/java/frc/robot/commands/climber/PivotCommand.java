@@ -7,48 +7,43 @@ import frc.robot.subsystems.Climber;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class MoveClimber extends CommandBase {
+public class PivotCommand extends CommandBase {
   public Climber climber;
-  public ClimberState ClimberState;
+  public PivotState pivotState;
   
-  /** Creates a new MoveClimb. */
-  public MoveClimber(Climber climber, ClimberState ClimberState) {
+  public PivotCommand(Climber climber, PivotState pivotState) {
     this.climber = climber;
-    this.ClimberState = ClimberState;
+    this.pivotState = pivotState;
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    switch(ClimberState){
+    switch(pivotState){
       case EXTEND:
-        climber.climberUp();
+        climber.pivotUp();
         break; 
       case RETRACT:
-        climber.climberDown();
+        climber.pivotDown();
         break;
       case STOP:
         climber.disable();
     }
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.stopClimber();
+    climber.stopPivot();
   }
 
-  public enum ClimberState{
+  public enum PivotState{
     EXTEND,
     RETRACT,
     STOP
 }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;

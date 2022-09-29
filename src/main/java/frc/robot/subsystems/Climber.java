@@ -69,11 +69,11 @@ public class Climber extends SubsystemBase {
 
   // Pivot
   public void pivotDown() {
-    LeftPivotMotor.set(ClimbConstants.kPivotSpeed);
+    LeftPivotMotor.set(-ClimbConstants.kPivotSpeed);
   }
 
   public void pivotUp() {
-    LeftPivotMotor.set(-ClimbConstants.kPivotSpeed);
+    LeftPivotMotor.set(ClimbConstants.kPivotSpeed);
   }
 
   public void setPivot(double position) {

@@ -198,7 +198,7 @@ public final class Constants {
         public static final int kRightClimbMotorPort = 17;
 
         // Climb Speeds
-        public static final double kPivotSpeed = 0.015;
+        public static final double kPivotSpeed = 0.2;
         public static final double kClimbSpeed = 1;
 
         // Climb Limits
