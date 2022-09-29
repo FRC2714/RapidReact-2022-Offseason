@@ -10,17 +10,17 @@ import frc.robot.subsystems.Index.IndexState;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Index;
 
-public class TeleOpShooter extends CommandBase {
+public class ShooterCommand extends CommandBase {
 
   public Shooter shooter;
   public Hood hood;
-  public ShooterState ShooterState;
+  public ShooterState shooterState;
   public Index index;
 
   /** Creates a new TeleOpShooter. */
-  public TeleOpShooter(Shooter shooter, ShooterState ShooterState, Hood hood, Index index) {
+  public ShooterCommand(Shooter shooter, ShooterState shooterState, Hood hood, Index index) {
     this.shooter = shooter;
-    this.ShooterState = ShooterState;
+    this.shooterState = shooterState;
     this.hood = hood;
     this.index = index;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -34,7 +34,7 @@ public class TeleOpShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    switch (ShooterState) {
+    switch (shooterState) {
       case DYNAMIC:
         shooter.setDynamicRpm();
         hood.setDynamicPosition();

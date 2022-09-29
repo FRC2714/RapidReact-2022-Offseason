@@ -14,8 +14,8 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.commands.drivetrain.AutoAlign;
 import frc.robot.commands.intake.IntakeCommand;
 import frc.robot.commands.intake.IntakeCommand.IntakeState;
-import frc.robot.commands.shooter.TeleOpShooter;
-import frc.robot.commands.shooter.TeleOpShooter.ShooterState;
+import frc.robot.commands.shooter.ShooterCommand;
+import frc.robot.commands.shooter.ShooterCommand.ShooterState;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Index;
 import frc.robot.subsystems.Intake;
@@ -63,7 +63,7 @@ public class FiveBallAuto extends SequentialCommandGroup {
             new IntakeCommand(intake, IntakeState.INTAKE, index)),
         // shoot first two balls
         deadline(
-            new TeleOpShooter(shooter, ShooterState.DYNAMIC, hood, index).withTimeout(1.25),
+            new ShooterCommand(shooter, ShooterState.DYNAMIC, hood, index).withTimeout(1.25),
             new AutoAlign(swerveSubsystem, limelight)),
         // move to third ball
         deadline(
@@ -71,7 +71,7 @@ public class FiveBallAuto extends SequentialCommandGroup {
             new IntakeCommand(intake, IntakeState.INTAKE, index)),
         // shoot third ball
         deadline(
-            new TeleOpShooter(shooter, ShooterState.DYNAMIC, hood, index).withTimeout(1.5),
+            new ShooterCommand(shooter, ShooterState.DYNAMIC, hood, index).withTimeout(1.5),
             new AutoAlign(swerveSubsystem, limelight),
             new IntakeCommand(intake, IntakeState.AUTO, index)),
         // intake human player ball
@@ -86,7 +86,7 @@ public class FiveBallAuto extends SequentialCommandGroup {
         splineToGoal,
         // shoot first two balls
         deadline(
-            new TeleOpShooter(shooter, ShooterState.DYNAMIC, hood, index).withTimeout(1.5),
+            new ShooterCommand(shooter, ShooterState.DYNAMIC, hood, index).withTimeout(1.5),
             new AutoAlign(swerveSubsystem, limelight),
             new IntakeCommand(intake, IntakeState.AUTO, index)),
         new InstantCommand(() -> swerveSubsystem.stopModules()));

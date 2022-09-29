@@ -14,8 +14,8 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.commands.drivetrain.AutoAlign;
 import frc.robot.commands.intake.IntakeCommand;
 import frc.robot.commands.intake.IntakeCommand.IntakeState;
-import frc.robot.commands.shooter.TeleOpShooter;
-import frc.robot.commands.shooter.TeleOpShooter.ShooterState;
+import frc.robot.commands.shooter.ShooterCommand;
+import frc.robot.commands.shooter.ShooterCommand.ShooterState;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Index;
 import frc.robot.subsystems.Intake;
@@ -57,7 +57,7 @@ public class BallStealAuto extends SequentialCommandGroup {
             new IntakeCommand(intake, IntakeState.INTAKE, index)),
         // shoot first two balls
         deadline(
-            new TeleOpShooter(shooter, ShooterState.DYNAMIC, hood, index).withTimeout(2.5),
+            new ShooterCommand(shooter, ShooterState.DYNAMIC, hood, index).withTimeout(2.5),
             new IntakeCommand(intake, IntakeState.AUTO, index),
             new AutoAlign(swerveSubsystem, limelight)),
         // move to and intake opposing hanger ball

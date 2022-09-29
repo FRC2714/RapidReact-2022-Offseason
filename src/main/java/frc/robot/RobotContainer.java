@@ -23,8 +23,8 @@ import frc.robot.commands.intake.IntakeCommand;
 import frc.robot.commands.intake.IntakeCommand.IntakeState;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.subsystems.*;
-import frc.robot.commands.shooter.TeleOpShooter;
-import frc.robot.commands.shooter.TeleOpShooter.ShooterState;
+import frc.robot.commands.shooter.ShooterCommand;
+import frc.robot.commands.shooter.ShooterCommand.ShooterState;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -92,7 +92,7 @@ public class RobotContainer {
     driverYButton.whenPressed(new InstantCommand(() -> swerveSubsystem.zeroHeading()));
 
     operatorAButton.whileHeld(new IntakeCommand(intake, IntakeState.INTAKE, index));
-    operatorBButton.whileHeld(new TeleOpShooter(shooter, ShooterState.DYNAMIC, hood, index));
+    operatorBButton.whileHeld(new ShooterCommand(shooter, ShooterState.DYNAMIC, hood, index));
     operatorXButton.whileHeld(new IntakeCommand(intake, IntakeState.EXTAKE, index));
 
     operatorDPadUp.whileHeld(new MoveClimber(climber, ClimberState.EXTEND));
