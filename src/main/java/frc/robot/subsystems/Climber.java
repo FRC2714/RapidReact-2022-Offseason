@@ -32,10 +32,8 @@ public class Climber extends SubsystemBase {
     RightPivotEncoder = RightPivotMotor.getEncoder();
     RightClimbEncoder = RightClimbMotor.getEncoder();
 
-    LeftClimbMotor.setSoftLimit(SoftLimitDirection.kForward, -105);
-
-    RightPivotMotor.follow(LeftPivotMotor, true);
-    RightClimbMotor.follow(LeftClimbMotor, true);
+    // RightPivotMotor.follow(LeftPivotMotor, true);
+    // RightClimbMotor.follow(LeftClimbMotor, true);
 
     LeftPivotMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
     RightPivotMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
@@ -47,8 +45,9 @@ public class Climber extends SubsystemBase {
     RightPivotEncoder.setPosition(0);
     RightClimbEncoder.setPosition(0);
 
-    // LeftClimbMotor.setSoftLimit(SoftLimitDirection.kForward,
-    // ClimbConstants.kMaxHeight);
+    LeftClimbMotor.setSoftLimit(SoftLimitDirection.kReverse,
+    -160);
+    RightClimbMotor.setSoftLimit(SoftLimitDirection.kReverse, ClimbConstants.kMaxHeight);
 
     // Set Current Limits
     LeftClimbMotor.setSmartCurrentLimit(50);
@@ -69,11 +68,11 @@ public class Climber extends SubsystemBase {
 
   // Pivot
   public void pivotDown() {
-    LeftPivotMotor.set(-ClimbConstants.kPivotSpeed);
+    LeftPivotMotor.set(ClimbConstants.kPivotSpeed);
   }
 
   public void pivotUp() {
-    LeftPivotMotor.set(ClimbConstants.kPivotSpeed);
+    RightPivotMotor.set(-ClimbConstants.kPivotSpeed);
   }
 
   public void setPivot(double position) {
@@ -82,11 +81,29 @@ public class Climber extends SubsystemBase {
 
   // Climber
   public void climberUp() {
-    LeftClimbMotor.set(ClimbConstants.kClimbSpeed);
+    LeftClimbMotor.set(-ClimbConstants.kClimbSpeed);
+    RightClimbMotor.set(ClimbConstants.kClimbSpeed);
   }
 
   public void climberDown() {
-    LeftClimbMotor.set(-ClimbConstants.kClimbSpeed);
+    LeftClimbMotor.set(ClimbConstants.kClimbSpeed);
+    RightClimbMotor.set(-ClimbConstants.kClimbSpeed);
+  }
+
+  public void rightclimberDown() {
+    RightClimbMotor.set(-.5);
+  }
+
+  public void leftclimberDown() {
+    LeftClimbMotor.set(.5);
+  }
+
+  public void rightclimberUp() {
+    RightClimbMotor.set(.5);
+  }
+
+  public void leftclimberUp() {
+    LeftClimbMotor.set(-.5);
   }
 
   // Stop

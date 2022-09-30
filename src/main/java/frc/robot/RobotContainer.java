@@ -17,7 +17,9 @@ import frc.robot.commands.auto.FiveBallAuto;
 import frc.robot.commands.auto.HelperSCurve;
 import frc.robot.commands.auto.SCurve;
 import frc.robot.commands.climber.MoveClimber;
+import frc.robot.commands.climber.PivotCommand;
 import frc.robot.commands.climber.MoveClimber.ClimberState;
+import frc.robot.commands.climber.PivotCommand.PivotState;
 import frc.robot.commands.drivetrain.AutoAlign;
 import frc.robot.commands.intake.IntakeCommand;
 import frc.robot.commands.intake.IntakeCommand.IntakeState;
@@ -63,6 +65,8 @@ public class RobotContainer {
   private POVButton operatorDPadLeft = new POVButton(operatorJoystick, 90);
   private POVButton operatorDPadDown = new POVButton(operatorJoystick, 180);
   private POVButton operatorDPadRight = new POVButton(operatorJoystick, 270);
+  private JoystickButton operatorLeftBumper = new JoystickButton(operatorJoystick, 5);
+  private JoystickButton operatorRightBumper = new JoystickButton(operatorJoystick, 6);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -97,6 +101,10 @@ public class RobotContainer {
 
     operatorDPadUp.whileHeld(new MoveClimber(climber, ClimberState.EXTEND));
     operatorDPadDown.whileHeld(new MoveClimber(climber, ClimberState.RETRACT));
+    operatorRightBumper.whileHeld(new PivotCommand(climber, PivotState.EXTEND));
+    operatorLeftBumper.whileHeld(new PivotCommand(climber, PivotState.RETRACT));
+    // operatorLeftBumper.whileHeld(new InstantCommand(() -> climber.leftclimberDown()));
+    // operatorRightBumper.whileHeld(new InstantCommand(() -> climber.rightclimberDown()));
   }
 
   /**
