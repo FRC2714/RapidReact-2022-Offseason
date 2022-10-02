@@ -94,6 +94,7 @@ public class RobotContainer {
     driverRightBumper.whileHeld(new AutoAlign(swerveSubsystem, limelight));
     driverLeftBumper.whileHeld(new IntakeCommand(intake, IntakeState.INTAKE, index));
     driverYButton.whenPressed(new InstantCommand(() -> swerveSubsystem.zeroHeading()));
+    driverBButton.whenPressed(new ShooterCommand(shooter, ShooterState.LOW, hood, index));
 
     operatorAButton.whileHeld(new IntakeCommand(intake, IntakeState.INTAKE, index));
     operatorBButton.whileHeld(new ShooterCommand(shooter, ShooterState.DYNAMIC, hood, index));

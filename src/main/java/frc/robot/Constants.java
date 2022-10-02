@@ -190,6 +190,10 @@ public final class Constants {
 
     }
 
+    public final static class GlobalConstants {
+        public static final boolean tuningMode = true;
+    }
+
     public static final class ClimbConstants {
         // Motor ports
         public static final int kLeftPivotMotorPort = 16;

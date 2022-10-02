@@ -12,7 +12,7 @@ import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import frc.robot.util.InterpolatingTreeMap;
-
+import frc.robot.util.TunableNumber;
 import frc.robot.Constants.ShooterConstants;
 
 public class Shooter extends SubsystemBase {
@@ -27,6 +27,7 @@ public class Shooter extends SubsystemBase {
 
   private double defaultRPM = 200;
   private double targetRPM = 0;
+  private TunableNumber testingRPM = new TunableNumber("tuning RPM");
 
   public Shooter(Limelight limelight) {
 
@@ -60,6 +61,8 @@ public class Shooter extends SubsystemBase {
     shooterPID.setI(ShooterConstants.kShooterI);
     shooterPID.setD(ShooterConstants.kShooterD);
 
+    testingRPM.setDefault(3000);
+
   }
 
   // shooterVelocity.put(7.0, 2500.0);
@@ -74,7 +77,7 @@ public class Shooter extends SubsystemBase {
         shooterVelocity.put(7.5, 2400.0);
         shooterVelocity.put(9.0, 2600.0);
         shooterVelocity.put(10.5, 2800.0);
-        shooterVelocity.put(12.5, 2900.0);
+        shooterVelocity.put(12.5, 3100.0);
         shooterVelocity.put(14.5, 3100.0);
         shooterVelocity.put(17.0, 3350.0);
         shooterVelocity.put(20.0, 3500.0);
@@ -101,6 +104,10 @@ public class Shooter extends SubsystemBase {
 
   public void setDefault() {
     setTargetRpm(defaultRPM);
+  }
+
+  public void setTuningRPM() {
+    setTargetRpm(testingRPM.get());
   }
 
   public double getVelocity() {

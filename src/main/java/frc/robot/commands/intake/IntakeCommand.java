@@ -33,7 +33,8 @@ public class IntakeCommand extends CommandBase {
       case INTAKE:
         intake.deployPivot();
         intake.intakeBalls();
-        index.moveAll(.25);
+        index.setRollerPower(.75);
+        index.setIndexPower(.25);
         if (index.getIndexBreakbeam()) {
           index.setIndexPower(0);
           index.setRollerPower(1);
