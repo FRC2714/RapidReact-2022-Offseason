@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMax.ControlType;
 
 import frc.robot.Constants.HoodConstants;
 import frc.robot.util.InterpolatingTreeMap;
+import frc.robot.util.TunableNumber;
 
 public class Hood extends SubsystemBase {
   private CANSparkMax hoodMotor;
@@ -23,6 +24,7 @@ public class Hood extends SubsystemBase {
 
   private double defaultPosition = 0;
   private double targetPosition = 0;
+  private TunableNumber tunePosition = new TunableNumber("Tuning Angle");
 
   public InterpolatingTreeMap hoodPosition = new InterpolatingTreeMap();
 
@@ -50,6 +52,8 @@ public class Hood extends SubsystemBase {
     hoodEncoder.setPosition(0);
     hoodMotor.setSoftLimit(SoftLimitDirection.kForward, HoodConstants.kTopLimit);
     hoodMotor.setSoftLimit(SoftLimitDirection.kReverse, HoodConstants.kBottomLimit);
+
+    tunePosition.setDefault(0);
 
     populateMap();
 
@@ -99,6 +103,10 @@ public class Hood extends SubsystemBase {
 
   public void setDynamicPosition() {
     setTargetPosition(getTargetPosition());
+  }
+
+  public void setTuningPosition() {
+    setTargetPosition(tunePosition.get());
   }
   
   public void setZero() {

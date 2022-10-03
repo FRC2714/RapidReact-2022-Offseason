@@ -25,7 +25,7 @@ public class ShooterCommand extends CommandBase {
     this.hood = hood;
     this.index = index;
   }
-  
+
   public ShooterCommand(Shooter shooter, ShooterState shooterState, Hood hood, Index index, double rpm, double pos) {
     this.shooter = shooter;
     this.shooterState = shooterState;
@@ -52,7 +52,7 @@ public class ShooterCommand extends CommandBase {
         break;
       case TUNING:
         shooter.setTuningRPM();
-        hood.setDynamicPosition();
+        hood.setTuningPosition();
         if (shooter.atSetpoint() && hood.atSetpoint()) {
           index.moveAll(.5);
         } else {
