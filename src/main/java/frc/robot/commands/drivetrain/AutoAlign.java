@@ -18,6 +18,7 @@ import frc.robot.subsystems.SwerveSubsystem;
 public class AutoAlign extends ProfiledPIDCommand {
   private SwerveSubsystem swerveSubsystem;
   private Limelight limelight;
+  private boolean atSetpoint;
 
   /** Creates a new AutoAlign. */
   public AutoAlign(SwerveSubsystem swerveSubsystem, Limelight limelight) {
@@ -43,6 +44,10 @@ public class AutoAlign extends ProfiledPIDCommand {
     this.limelight = limelight;
     this.swerveSubsystem = swerveSubsystem;
     getController().setTolerance(.05, .2);
+
+    if (getController().atSetpoint()) {
+      atSetpoint = true;
+    }
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
   }
@@ -50,7 +55,7 @@ public class AutoAlign extends ProfiledPIDCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return atSetpoint;
   }
 
   @Override
