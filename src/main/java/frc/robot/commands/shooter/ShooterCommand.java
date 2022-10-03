@@ -17,6 +17,7 @@ public class ShooterCommand extends CommandBase {
   public ShooterState shooterState;
   public Index index;
   public double rpm;
+  public double pos;
 
   public ShooterCommand(Shooter shooter, ShooterState shooterState, Hood hood, Index index) {
     this.shooter = shooter;
@@ -24,7 +25,8 @@ public class ShooterCommand extends CommandBase {
     this.hood = hood;
     this.index = index;
   }
-  public ShooterCommand(Shooter shooter, ShooterState shooterState, Hood hood, Index index, double rpm) {
+  
+  public ShooterCommand(Shooter shooter, ShooterState shooterState, Hood hood, Index index, double rpm, double pos) {
     this.shooter = shooter;
     this.shooterState = shooterState;
     this.hood = hood;
@@ -59,7 +61,7 @@ public class ShooterCommand extends CommandBase {
         break;
       case MANUAL:
       shooter.setTargetRpm(rpm);
-      hood.setDynamicPosition();
+      hood.setTargetPosition(pos);
       if (shooter.atSetpoint() && hood.atSetpoint()) {
         index.moveAll(.5);
       } else {
