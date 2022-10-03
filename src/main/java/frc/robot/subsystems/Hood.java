@@ -79,6 +79,10 @@ public class Hood extends SubsystemBase {
     return hoodMotor.getOutputCurrent();
   }
 
+  public void set(double power) {
+    hoodMotor.set(power);
+  }
+
   public double getPosition() {
     return hoodEncoder.getPosition();
   }
@@ -95,6 +99,10 @@ public class Hood extends SubsystemBase {
 
   public void setDynamicPosition() {
     setTargetPosition(getTargetPosition());
+  }
+  
+  public void setZero() {
+    hoodEncoder.setPosition(0);
   }
 
   public void disable() {

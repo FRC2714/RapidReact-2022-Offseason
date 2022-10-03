@@ -18,7 +18,6 @@ public class ShooterCommand extends CommandBase {
   public Index index;
   public double rpm;
 
-  /** Creates a new TeleOpShooter. */
   public ShooterCommand(Shooter shooter, ShooterState shooterState, Hood hood, Index index) {
     this.shooter = shooter;
     this.shooterState = shooterState;
@@ -33,12 +32,10 @@ public class ShooterCommand extends CommandBase {
     this.rpm = rpm;
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     switch (shooterState) {
@@ -82,14 +79,12 @@ public class ShooterCommand extends CommandBase {
     DYNAMIC,
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     shooter.disable();
     index.disable();
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
