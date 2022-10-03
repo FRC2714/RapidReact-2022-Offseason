@@ -22,7 +22,6 @@ public class Hood extends SubsystemBase {
   private SparkMaxPIDController hoodPID;
 
   private double defaultPosition = 0;
-  private double midShotPosition = 0;
   private double targetPosition = 0;
 
   public InterpolatingTreeMap hoodPosition = new InterpolatingTreeMap();
@@ -61,26 +60,23 @@ public class Hood extends SubsystemBase {
     hoodPID.setReference(-targetPosition, ControlType.kSmartMotion, 0);
   }
 
-  public void setMidShot() {
-    setTargetPosition(midShotPosition);
-  }
-
   public void populateMap() {
-    hoodPosition.put(5.5, 10.0);
-    hoodPosition.put(6.5, 15.0);
-    hoodPosition.put(7.5, 20.0);
-    hoodPosition.put(8.5, 22.5);
-    hoodPosition.put(9.5, 25.0);
-    hoodPosition.put(10.5, 30.0);
-    hoodPosition.put(11.5, 32.5);
-    hoodPosition.put(12.5, 35.0);
-    hoodPosition.put(14.5, 38.0);
-    hoodPosition.put(17.0, 39.5);
-    hoodPosition.put(20.0, 40.0); 
+    hoodPosition.put(4.5, 1.0);
+    hoodPosition.put(7.0, 14.0);
+    hoodPosition.put(8.5, 17.0);
+    hoodPosition.put(10.0, 25.0);
+    hoodPosition.put(12.0, 29.0);
+    hoodPosition.put(14.0, 33.0);
+    hoodPosition.put(16.5, 38.0);
+    hoodPosition.put(20.0, 40.0);
   } // TODO: populate map
 
   public void setDefault() {
     setTargetPosition(defaultPosition);
+  }
+
+  public double getOutputCurrent() {
+    return hoodMotor.getOutputCurrent();
   }
 
   public double getPosition() {

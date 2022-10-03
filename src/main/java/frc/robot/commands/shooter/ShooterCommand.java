@@ -16,6 +16,7 @@ public class ShooterCommand extends CommandBase {
   public Hood hood;
   public ShooterState shooterState;
   public Index index;
+  public double rpm;
 
   /** Creates a new TeleOpShooter. */
   public ShooterCommand(Shooter shooter, ShooterState shooterState, Hood hood, Index index) {
@@ -23,7 +24,13 @@ public class ShooterCommand extends CommandBase {
     this.shooterState = shooterState;
     this.hood = hood;
     this.index = index;
-    // Use addRequirements() here to declare subsystem dependencies.
+  }
+  public ShooterCommand(Shooter shooter, ShooterState shooterState, Hood hood, Index index, double rpm) {
+    this.shooter = shooter;
+    this.shooterState = shooterState;
+    this.hood = hood;
+    this.index = index;
+    this.rpm = rpm;
   }
 
   // Called when the command is initially scheduled.
@@ -44,7 +51,7 @@ public class ShooterCommand extends CommandBase {
           index.disable();
         }
         break;
-      case LOW:
+      case TUNING:
         shooter.setTuningRPM();
         hood.setDynamicPosition();
         if (shooter.atSetpoint() && hood.atSetpoint()) {
@@ -53,19 +60,24 @@ public class ShooterCommand extends CommandBase {
           index.disable();
         }
         break;
+      case MANUAL:
+      shooter.setTargetRpm(rpm);
+      hood.setDynamicPosition();
+      if (shooter.atSetpoint() && hood.atSetpoint()) {
+        index.moveAll(.5);
+      } else {
+        index.disable();
+      }
       case OFF:
         shooter.disable();
         hood.disable();
-        break;
-      default:
-        shooter.setDefault();
-        hood.setDefault();
         break;
     }
   }
 
   public enum ShooterState {
-    LOW,
+    TUNING,
+    MANUAL,
     OFF,
     DYNAMIC,
   }
