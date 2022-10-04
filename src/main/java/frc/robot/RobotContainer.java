@@ -14,9 +14,6 @@ import frc.robot.Constants.OIConstants;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.commands.drivetrain.JoystickCommand;
 import frc.robot.commands.auto.*;
-import frc.robot.commands.auto.FiveBallAuto;
-import frc.robot.commands.auto.HelperSCurve;
-import frc.robot.commands.auto.SCurve;
 import frc.robot.commands.climber.MoveClimber;
 import frc.robot.commands.climber.PivotCommand;
 import frc.robot.commands.climber.MoveClimber.ClimberState;
@@ -128,6 +125,10 @@ public class RobotContainer {
 
   public Command getNothingAuto() {
     return new NothingAuto();
+  }
+
+  public Command getStraightLineAuto() {
+    return new StraightLineAuto(swerveSubsystem, limelight, shooter, hood, intake, index);
   }
 
   public Command getBallStealAuto() {

@@ -42,6 +42,7 @@ public class Robot extends TimedRobot {
     autoChooser.setDefaultOption("Nothing Auto", m_robotContainer.getNothingAuto());
     autoChooser.addOption("Helper S Curve", m_robotContainer.getHelperSCurveAuto());
     autoChooser.addOption("SCurve", m_robotContainer.getSCurveAuto());
+    autoChooser.addOption("Straight Line", m_robotContainer.getStraightLineAuto());
     autoChooser.addOption("Ball Steal", m_robotContainer.getBallStealAuto());
     autoChooser.addOption("Five Ball", m_robotContainer.getFiveBallAuto());
 
