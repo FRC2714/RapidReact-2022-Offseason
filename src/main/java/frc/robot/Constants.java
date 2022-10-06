@@ -129,6 +129,7 @@ public final class Constants {
     }
 
     public static final class IntakeConstants {
+        public static final int kIntakePivotFollowerPort = 20;
         public static final int kIntakeMotorPort = 15;
         public static final int kIntakePivotMotorPort = 14;
 

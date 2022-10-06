@@ -15,13 +15,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
 
-  public CANSparkMax intakeMotor, pivotMotor;
+  public CANSparkMax intakeMotor, pivotMotor, pivotFollower;
   public RelativeEncoder pivotEncoder;
   public SparkMaxPIDController pivotPIDController;
 
   public Intake() {
     intakeMotor = new CANSparkMax(IntakeConstants.kIntakeMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
     pivotMotor = new CANSparkMax(IntakeConstants.kIntakePivotMotorPort, CANSparkMaxLowLevel.MotorType.kBrushless);
+    pivotFollower = new CANSparkMax(IntakeConstants.kIntakePivotFollowerPort, CANSparkMaxLowLevel.MotorType.kBrushless);
+
+    pivotFollower.follow(pivotMotor);
 
     intakeMotor.setIdleMode(IdleMode.kCoast);
     pivotMotor.setIdleMode(IdleMode.kBrake);

@@ -32,6 +32,7 @@ public class ShooterCommand extends CommandBase {
     this.hood = hood;
     this.index = index;
     this.rpm = rpm;
+    this.pos = pos;
   }
 
   @Override
