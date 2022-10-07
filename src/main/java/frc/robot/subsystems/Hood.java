@@ -65,14 +65,14 @@ public class Hood extends SubsystemBase {
   }
 
   public void populateMap() {
-    hoodPosition.put(4.5, 1.0);
-    hoodPosition.put(7.0, 14.0);
-    hoodPosition.put(8.5, 17.0);
-    hoodPosition.put(10.0, 25.0);
-    hoodPosition.put(12.0, 29.0);
-    hoodPosition.put(14.0, 33.0);
-    hoodPosition.put(16.5, 38.0);
-    hoodPosition.put(20.0, 40.0);
+    hoodPosition.put(4.5, 0.0);
+    hoodPosition.put(7.0, 17.0);
+    hoodPosition.put(8.5, 22.0);
+    hoodPosition.put(10.0, 33.0);
+    hoodPosition.put(12.0, 35.0);
+    hoodPosition.put(14.0, 40.0);
+    hoodPosition.put(16.5, 41.0);
+    hoodPosition.put(20.0, 42.0);
   } // TODO: populate map
 
   public void setDefault() {
@@ -122,5 +122,6 @@ public class Hood extends SubsystemBase {
     SmartDashboard.putNumber("CURRENT HOOD POSITION", getPosition());
     SmartDashboard.putNumber("TARGET HOOD POSITION", getTargetPosition());
     SmartDashboard.putBoolean("HOOD TOLERANCE", atSetpoint());
+    SmartDashboard.putNumber("CURRENT OUTPUT", getOutputCurrent());
   }
 }

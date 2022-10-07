@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -24,6 +25,7 @@ import frc.robot.commands.intake.IntakeCommand.IntakeState;
 import edu.wpi.first.wpilibj2.command.button.*;
 import frc.robot.subsystems.*;
 import frc.robot.commands.shooter.ShooterCommand;
+import frc.robot.commands.shooter.ZeroHood;
 import frc.robot.commands.shooter.ShooterCommand.ShooterState;
 
 /**
@@ -54,6 +56,7 @@ public class RobotContainer {
   private JoystickButton driverYButton = new JoystickButton(driverJoystick, 4);
   private JoystickButton driverLeftBumper = new JoystickButton(driverJoystick, 5);
   private JoystickButton driverRightBumper = new JoystickButton(driverJoystick, 6);
+  Trigger driverLeftTrigger = new Trigger(() -> driverJoystick.getRawAxis(2) > 0.1);
 
   private JoystickButton operatorAButton = new JoystickButton(operatorJoystick, 1);
   private JoystickButton operatorBButton = new JoystickButton(operatorJoystick, 2);
@@ -89,14 +92,16 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    driverRightBumper.whileHeld(new AutoAlign(swerveSubsystem, limelight));
-    driverRightBumper.whileHeld(new SequentialCommandGroup(
+    // driverRightBumper.whileHeld(new AutoAlign(swerveSubsystem, limelight));
+    driverRightBumper.whileHeld(new ParallelCommandGroup(
       new AutoAlign(swerveSubsystem, limelight),
       new ShooterCommand(shooter, ShooterState.DYNAMIC, hood, index)
     ));
     driverLeftBumper.whileHeld(new IntakeCommand(intake, IntakeState.INTAKE, index));
+    driverLeftTrigger.whileActiveContinuous(new IntakeCommand(intake, IntakeState.EXTAKE, index));
     driverYButton.whenPressed(new InstantCommand(() -> swerveSubsystem.zeroHeading()));
     driverBButton.whenPressed(new ShooterCommand(shooter, ShooterState.TUNING, hood, index));
+    driverXButton.whenPressed(new ZeroHood(hood));
 
     operatorAButton.whileHeld(new IntakeCommand(intake, IntakeState.INTAKE, index));
     operatorBButton.whileHeld(new ShooterCommand(shooter, ShooterState.DYNAMIC, hood, index));

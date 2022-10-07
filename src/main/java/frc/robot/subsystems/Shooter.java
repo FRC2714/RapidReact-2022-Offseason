@@ -78,9 +78,9 @@ public class Shooter extends SubsystemBase {
         shooterVelocity.put(9.0, 2600.0);
         shooterVelocity.put(10.5, 2800.0);
         shooterVelocity.put(12.5, 3100.0);
-        shooterVelocity.put(14.5, 3100.0);
-        shooterVelocity.put(17.0, 3350.0);
-        shooterVelocity.put(20.0, 3500.0);
+        shooterVelocity.put(14.5, 3350.0);
+        shooterVelocity.put(17.0, 3500.0);
+        shooterVelocity.put(20.0, 3650.0);
   }
 
   public void setShooterPower(double power) {
