@@ -157,7 +157,7 @@ public final class Constants {
         public static final int kRightShooterMotorPort = 10;
 
         public static final double kVelocityTolerance = 80;
-        public static final double kShooterFF = 0.000185;
+        public static final double kShooterFF = 0.000192;
         public static final double kShooterP = 0.000;
         public static final double kShooterI = 0;
         public static final double kShooterD = 0;
@@ -192,7 +192,7 @@ public final class Constants {
     }
 
     public final static class GlobalConstants {
-        public static final boolean tuningMode = true;
+        public static final boolean tuningMode = false;
     }
 
     public static final class ClimbConstants {

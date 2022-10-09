@@ -33,8 +33,8 @@ public class StraightLineAuto extends SequentialCommandGroup {
 		CustomSwerveControllerCommand moveBack =
 			PathGenerator.PathCommand(swerveSubsystem,
 				List.of(
-                    new Pose2d(Units.feetToMeters(initialX-distance), Units.feetToMeters(12.56), Rotation2d.fromDegrees(180.00)), 
-                    new Pose2d(Units.feetToMeters(initialX), Units.feetToMeters(12.56), Rotation2d.fromDegrees(180.00))),
+                    new Pose2d(Units.feetToMeters(10), Units.feetToMeters(12.56), Rotation2d.fromDegrees(180.00)), 
+                    new Pose2d(Units.feetToMeters(0), Units.feetToMeters(12.56), Rotation2d.fromDegrees(180.00))),
 				AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
 
 		addCommands(

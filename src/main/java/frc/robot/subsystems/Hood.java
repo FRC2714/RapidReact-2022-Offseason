@@ -22,7 +22,7 @@ public class Hood extends SubsystemBase {
   private RelativeEncoder hoodEncoder;
   private SparkMaxPIDController hoodPID;
 
-  private double defaultPosition = 0;
+  private double defaultPosition = 1;
   private double targetPosition = 0;
   private TunableNumber tunePosition = new TunableNumber("Tuning Angle");
 

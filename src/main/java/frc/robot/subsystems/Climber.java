@@ -113,6 +113,7 @@ public class Climber extends SubsystemBase {
 
   public void stopClimber() {
     LeftClimbMotor.set(0);
+    RightClimbMotor.set(0);
   }
 
   public void disable() {

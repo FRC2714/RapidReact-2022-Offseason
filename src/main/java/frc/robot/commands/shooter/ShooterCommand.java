@@ -46,7 +46,8 @@ public class ShooterCommand extends CommandBase {
         shooter.setDynamicRpm();
         hood.setDynamicPosition();
         if (shooter.atSetpoint() && hood.atSetpoint()) {
-          index.moveAll(.75);
+          index.setRollerPower(.7);
+          index.setIndexPower(.4);
         } else {
           index.disable();
         }

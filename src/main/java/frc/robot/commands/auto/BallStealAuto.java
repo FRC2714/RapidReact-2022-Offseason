@@ -32,12 +32,12 @@ public class BallStealAuto extends SequentialCommandGroup {
         List.of(
             new Pose2d(Units.feetToMeters(19.73), Units.feetToMeters(16.86), Rotation2d.fromDegrees(135)),
             new Pose2d(Units.feetToMeters(16.59), Units.feetToMeters(19.78), Rotation2d.fromDegrees(130.00))),
-        AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
+        1.5, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
     CustomSwerveControllerCommand splineToOpposingHangarBall = PathGenerator.PathCommand(swerveSubsystem,
         List.of(
             new Pose2d(Units.feetToMeters(16.59), Units.feetToMeters(19.78), Rotation2d.fromDegrees(130.00)),
             new Pose2d(Units.feetToMeters(19.55), Units.feetToMeters(23.39), Rotation2d.fromDegrees(-1.00))),
-        AutoConstants.kMaxSpeedMetersPerSecond, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
+        1.0, AutoConstants.kMaxAccelerationMetersPerSecondSquared);
     CustomSwerveControllerCommand splineToOpposingHubBall = PathGenerator.PathCommand(swerveSubsystem,
         List.of(
             new Pose2d(Units.feetToMeters(19.55), Units.feetToMeters(23.39), Rotation2d.fromDegrees(-1.00)),

@@ -25,8 +25,9 @@ public class Shooter extends SubsystemBase {
   private InterpolatingTreeMap shooterVelocity = new InterpolatingTreeMap();
   private Limelight limelight;
 
-  private double defaultRPM = 200;
+  private double defaultRPM = 2000;
   private double targetRPM = 0;
+  private double incrementRPM = 0;
   private TunableNumber testingRPM = new TunableNumber("tuning RPM");
 
   public Shooter(Limelight limelight) {
@@ -65,23 +66,42 @@ public class Shooter extends SubsystemBase {
 
   }
 
-  // shooterVelocity.put(7.0, 2500.0);
-  // shooterVelocity.put(10.0, 2700.0);
-  // shooterVelocity.put(12.0, 2900.0);
-  // shooterVelocity.put(14.0, 3150.0);
-  // shooterVelocity.put(16.5, 3450.0);
-  // shooterVelocity.put(20.0, 3750.0);
+
+
+  // private void populateVelocityMap() {
+  //       shooterVelocity.put(5.5, 2300.0);
+  //       shooterVelocity.put(7.5, 2400.0);
+  //       shooterVelocity.put(9.0, 2600.0);
+  //       shooterVelocity.put(10.5, 2800.0);
+  //       shooterVelocity.put(12.5, 3100.0);
+  //       shooterVelocity.put(14.5, 3350.0);
+  //       shooterVelocity.put(17.0, 3500.0);
+  //       shooterVelocity.put(20.0, 3650.0);
+  // }
 
   private void populateVelocityMap() {
-        shooterVelocity.put(5.5, 2300.0);
-        shooterVelocity.put(7.5, 2400.0);
-        shooterVelocity.put(9.0, 2600.0);
-        shooterVelocity.put(10.5, 2800.0);
-        shooterVelocity.put(12.5, 3100.0);
-        shooterVelocity.put(14.5, 3350.0);
-        shooterVelocity.put(17.0, 3500.0);
-        shooterVelocity.put(20.0, 3650.0);
+    shooterVelocity.put(5.5, 2400.0);
+    shooterVelocity.put(7.5, 2500.0);
+    shooterVelocity.put(9.0, 2700.0);
+    shooterVelocity.put(10.5, 2900.0);
+    shooterVelocity.put(12.5, 3200.0);
+    shooterVelocity.put(14.5, 3450.0);
+    shooterVelocity.put(17.0, 3600.0);
+    shooterVelocity.put(20.0, 3750.0);
   }
+
+  public void incrementRPM() {
+    incrementRPM += 50;
+  }
+
+  public void decrementRPM() {
+    incrementRPM -= 50;
+  }
+
+  public void disableincrementRPM() {
+    incrementRPM = 0;
+  }
+  
 
   public void setShooterPower(double power) {
     LeftShooterMotor.set(-power);
@@ -89,10 +109,9 @@ public class Shooter extends SubsystemBase {
 
   public double getTargetRpm() {
     return limelight.targetVisible()
-        ? shooterVelocity.getInterpolated(Units.metersToFeet(limelight.getDistanceToGoal()))
+        ? shooterVelocity.getInterpolated(Units.metersToFeet(limelight.getDistanceToGoal()) + incrementRPM)
         : defaultRPM;
   }
-
   public void setTargetRpm(double targetRPM) {
     this.targetRPM = targetRPM;
     shooterPID.setReference(-targetRPM, ControlType.kVelocity);
@@ -127,5 +146,6 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putNumber("CURRENT SHOOTER RPM", shooterEncoder.getVelocity());
     SmartDashboard.putNumber("RPM SETPOINT", getTargetRpm());
     SmartDashboard.putBoolean("SHOOTER TOLERANCE", atSetpoint());
+    SmartDashboard.putNumber("INCREMENT RPM", incrementRPM);
   }
 }

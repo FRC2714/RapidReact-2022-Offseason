@@ -100,8 +100,8 @@ public class RobotContainer {
     driverLeftBumper.whileHeld(new IntakeCommand(intake, IntakeState.INTAKE, index));
     driverLeftTrigger.whileActiveContinuous(new IntakeCommand(intake, IntakeState.EXTAKE, index));
     driverYButton.whenPressed(new InstantCommand(() -> swerveSubsystem.zeroHeading()));
-    driverBButton.whenPressed(new ShooterCommand(shooter, ShooterState.TUNING, hood, index));
-    driverXButton.whenPressed(new ZeroHood(hood));
+    // driverBButton.whenPressed(new ShooterCommand(shooter, ShooterState.TUNING, hood, index));
+    // driverXButton.whenPressed(new ZeroHood(hood));
 
     operatorAButton.whileHeld(new IntakeCommand(intake, IntakeState.INTAKE, index));
     operatorBButton.whileHeld(new ShooterCommand(shooter, ShooterState.DYNAMIC, hood, index));
@@ -109,12 +109,17 @@ public class RobotContainer {
 
     operatorDPadUp.whileHeld(new MoveClimber(climber, ClimberState.EXTEND));
     operatorDPadDown.whileHeld(new MoveClimber(climber, ClimberState.RETRACT));
-    operatorRightBumper.whileHeld(new PivotCommand(climber, PivotState.EXTEND));
-    operatorLeftBumper.whileHeld(new PivotCommand(climber, PivotState.RETRACT));
+    // operatorRightBumper.whileHeld(new PivotCommand(climber, PivotState.EXTEND));
+    // operatorLeftBumper.whileHeld(new PivotCommand(climber, PivotState.RETRACT));
     // operatorLeftBumper.whileHeld(new InstantCommand(() -> climber.leftclimberDown()));
     // operatorRightBumper.whileHeld(new InstantCommand(() -> climber.rightclimberDown()));
-  }
 
+    operatorDPadRight.whenReleased(new InstantCommand(() -> shooter.incrementRPM()));
+    operatorDPadLeft.whenReleased(new InstantCommand(() -> shooter.decrementRPM()));
+
+    operatorDPadRight.whenPressed(new InstantCommand(() -> shooter.incrementRPM()))
+    .whenReleased(new InstantCommand(() -> shooter.disableincrementRPM()));
+  }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *

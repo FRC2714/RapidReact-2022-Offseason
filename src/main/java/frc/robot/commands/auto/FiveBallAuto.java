@@ -83,7 +83,8 @@ public class FiveBallAuto extends SequentialCommandGroup {
             splineToWaiting.withTimeout(.5),
             new IntakeCommand(intake, IntakeState.INTAKE, index)),
         // move to shoot
-        splineToGoal,
+        deadline(
+            splineToGoal),
         // shoot first two balls
         deadline(
             new ShooterCommand(shooter, ShooterState.DYNAMIC, hood, index).withTimeout(1.5),
